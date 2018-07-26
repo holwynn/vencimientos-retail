@@ -51,8 +51,7 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'ezauth' => \App\Http\Middleware\EasyAuth::class,
-        'auth' => \Illuminate\Auth\Middleware\Authenticate::class,
+        'jwt' => \App\Http\Middleware\Jwt::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,

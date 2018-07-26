@@ -15,10 +15,13 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('user_id')->unsigned();
             $table->string('name');
             $table->string('upc')->unique();
             $table->integer('qty');
             $table->date('expiration');
+
+            $table->foreign('user_id')->references('id')->on('users');
 
             $table->timestamps();
         });

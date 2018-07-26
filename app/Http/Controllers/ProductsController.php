@@ -10,13 +10,26 @@ use App\Product;
 class ProductsController extends Controller
 {
     /**
+     * Create a new AuthController instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('jwt', ['except' => ['index', 'show']]);
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        return Product::orderBy('expiration', 'ASC')->take(100)->get();
+        return Product::with('user')
+            ->orderBy('expiration', 'ASC')
+            ->take(100)
+            ->get();
     }
 
     /**
@@ -41,7 +54,7 @@ class ProductsController extends Controller
             ], 400);
         }
 
-        $product = Product::create($request->all());
+        $product = auth()->user()->products()->create($request->all());
 
         return $product;
     }

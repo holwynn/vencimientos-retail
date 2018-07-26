@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\User;
 use App\Product;
 
 class ProductsTableSeeder extends Seeder
@@ -12,23 +13,28 @@ class ProductsTableSeeder extends Seeder
      */
     public function run()
     {
-        $upc = 1;
+        $user = User::create([
+            'name' => 'Ariel Holowinski',
+            'email' => 'ariel@walmart.com',
+            'password' => bcrypt('asd123')
+        ]);
 
-        Product::create([
+        $upc = 1;
+        $user->products()->create([
             'name' => 'Manteca Illolay x 200gr',
             'upc' => $upc,
             'qty' => rand(1, 50),
             'expiration' => '2018-02-12',
         ]);
 
-        Product::create([
+        $user->products()->create([
             'name' => 'Coca-Cola 2lt',
             'upc' => $upc + 1,
             'qty' => rand(1, 50),
             'expiration' => '2018-02-12',
         ]);
 
-        Product::create([
+        $user->products()->create([
             'name' => 'Coca-Cola 2lt',
             'upc' => $upc + 2,
             'qty' => rand(1, 50),
