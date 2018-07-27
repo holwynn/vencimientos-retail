@@ -16,7 +16,7 @@ class ProductsController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('jwt', ['except' => ['index', 'show']]);
+        $this->middleware('jwt', ['except' => ['index']]);
     }
 
     /**
@@ -82,22 +82,52 @@ class ProductsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  str  $upc
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $upc)
     {
-        //
+        $product = Product::where('upc', $upc)->first();
+
+        if (!$product) {
+            return new Response([
+                'msg' => 'Product does not exist'
+            ], 404);
+        }
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'string',
+            'upc' => 'string|unique:products,upc',
+            'qty' => 'integer',
+            'expiration' => 'date'
+        ]);
+
+        $product->update($request->all());
+        $product->save();
+
+        return $product;
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  str  $upc
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($upc)
     {
-        //
+        $product = Product::where('upc', $upc)->first();
+
+        if (!$product) {
+            return new Response([
+                'msg' => 'Product does not exist'
+            ], 404);
+        }
+
+        $product->delete();
+
+        return new Response([
+            'msg' => 'Product deleted'
+        ], 200);
     }
 }

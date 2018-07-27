@@ -14,10 +14,8 @@ use Illuminate\Http\Request;
 */
 
 Route::group([
-
     'middleware' => 'api',
     'prefix' => 'auth'
-
 ], function () {
     Route::post('login', 'AuthController@login');
     Route::post('logout', 'AuthController@logout');
@@ -29,3 +27,5 @@ Route::group([
 Route::middleware('api')->get('/products', 'ProductsController@index');
 Route::middleware('api')->get('/products/{upc}', 'ProductsController@show');
 Route::middleware('api')->post('/products', 'ProductsController@store');
+Route::middleware('api')->put('/products/{upc}', 'ProductsController@update');
+Route::middleware('api')->delete('/products/{upc}', 'ProductsController@destroy');
