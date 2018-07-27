@@ -16,7 +16,7 @@ class ProductsController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('jwt', ['except' => ['index']]);
+        $this->middleware('jwt', ['except' => ['index', 'show']]);
     }
 
     /**
