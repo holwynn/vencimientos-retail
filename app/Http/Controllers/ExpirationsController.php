@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use Validator;
+use App\Expiration;
 use App\Product;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class ProductsController extends Controller
+class ExpirationsController extends Controller
 {
     /**
      * Create a new AuthController instance.
@@ -26,8 +27,9 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        return Product::orderBy('id', 'DESC')
-            ->take(100)
+        return Expiration::with('product')
+            ->orderBy('expiration', 'ASC')
+            ->take(50)
             ->get();
     }
 
@@ -40,9 +42,9 @@ class ProductsController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string',
-            'upc' => 'required|string|unique:products,upc',
-            'img' => 'string',
+            'qty' => 'required|integer',
+            'expiration' => 'required|date',
+            'upc' => 'required|exists:products,upc'
         ]);
 
         if ($validator->fails()) {
@@ -52,79 +54,80 @@ class ProductsController extends Controller
             ], 400);
         }
 
-        $product = auth()->user()->products()->create($request->all());
+        $product = Product::where('upc', $request->input('upc'))->first();
+        $expiration = $product->expirations()->create($request->all());
 
-        return $product;
+        return $expiration->load('product');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  str  $upc
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($upc)
+    public function show($id)
     {
-        $product = Product::where('upc', $upc)->first();
+        $expiration = Expiration::with('product')
+            ->find($id);
 
-        if (!$product) {
+        if (!$expiration) {
             return new Response([
-                'msg' => 'Product does not exist'
+                'msg' => 'Expiration does not exist'
             ], 404);
         }
 
-        return $product;
+        return $expiration;
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  str  $upc
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $upc)
+    public function update(Request $request, $id)
     {
-        $product = Product::where('upc', $upc)->first();
+        $expiration = Expiration::find($id);
 
-        if (!$product) {
+        if (!$expiration) {
             return new Response([
-                'msg' => 'Product does not exist'
+                'msg' => 'Expiration does not exist'
             ], 404);
         }
 
         $validator = Validator::make($request->all(), [
-            'name' => 'string',
-            'upc' => 'string|unique:products,upc',
-            'img' => 'string',
+            'qty' => 'string',
+            'expiration' => 'date',
         ]);
 
-        $product->update($request->all());
-        $product->save();
+        $expiration->update($request->all());
+        $expiration->save();
 
-        return $product;
+        return $expiration->load('product');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  str  $upc
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($upc)
+    public function destroy($id)
     {
-        $product = Product::where('upc', $upc)->first();
+        $expiration = Expiration::find($id);
 
-        if (!$product) {
+        if (!$expiration) {
             return new Response([
-                'msg' => 'Product does not exist'
+                'msg' => 'Expiration does not exist'
             ], 404);
         }
 
-        $product->delete();
+        $expiration->delete();
 
         return new Response([
-            'msg' => 'Product deleted'
+            'msg' => 'Expiration deleted'
         ], 200);
     }
 }
