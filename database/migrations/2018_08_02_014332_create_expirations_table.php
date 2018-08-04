@@ -15,7 +15,7 @@ class CreateExpirationsTable extends Migration
     {
         Schema::create('expirations', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('product_id');
+            $table->integer('product_id')->unsigned();
             $table->integer('qty');
             $table->date('expiration');
 
