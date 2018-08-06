@@ -13,6 +13,9 @@ trait CreatesApplication
      */
     public function createApplication()
     {
+        // Use in memory sqlite
+        putenv('DB_CONNECTION=testing');
+
         $app = require __DIR__.'/../bootstrap/app.php';
 
         $app->make(Kernel::class)->bootstrap();
