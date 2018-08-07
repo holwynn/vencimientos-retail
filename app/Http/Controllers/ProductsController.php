@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use Validator;
 use App\Product;
+use App\Http\Requests\StoreProductRequest;
+use App\Http\Requests\UpdateProductRequest;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class ProductsController extends Controller
 {
@@ -37,22 +40,9 @@ class ProductsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreProductRequest $request)
     {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string',
-            'upc' => 'required|string|unique:products,upc',
-            'img' => 'string',
-        ]);
-
-        if ($validator->fails()) {
-            return new Response([
-                'msg' => 'Failed to validate data',
-                'errors' => $validator->errors(),
-            ], 400);
-        }
-
-        $product = auth()->user()->products()->create($request->all());
+        $product = auth()->user()->products()->create($request->validated());
 
         return $product;
     }
@@ -68,9 +58,9 @@ class ProductsController extends Controller
         $product = Product::where('upc', $upc)->first();
 
         if (!$product) {
-            return new Response([
-                'msg' => 'Product does not exist'
-            ], 404);
+            throw new HttpResponseException(response()->json([
+                'msg' => 'Product does not exist',
+            ]), 404);
         }
 
         return $product;
@@ -83,21 +73,15 @@ class ProductsController extends Controller
      * @param  str  $upc
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $upc)
+    public function update(UpdateProductRequest $request, $upc)
     {
         $product = Product::where('upc', $upc)->first();
 
         if (!$product) {
-            return new Response([
-                'msg' => 'Product does not exist'
-            ], 404);
+            throw new HttpResponseException(response()->json([
+                'msg' => 'Product does not exist',
+            ], 404));
         }
-
-        $validator = Validator::make($request->all(), [
-            'name' => 'string',
-            'upc' => 'string|unique:products,upc',
-            'img' => 'string',
-        ]);
 
         $product->update($request->all());
         $product->save();
@@ -116,9 +100,9 @@ class ProductsController extends Controller
         $product = Product::where('upc', $upc)->first();
 
         if (!$product) {
-            return new Response([
-                'msg' => 'Product does not exist'
-            ], 404);
+            throw new HttpResponseException(response()->json([
+                'msg' => 'Product does not exist',
+            ], 404));
         }
 
         $product->delete();

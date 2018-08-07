@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use Validator;
 use App\Expiration;
 use App\Product;
+use App\Http\Requests\StoreExpirationRequest;
+use App\Http\Requests\UpdateExpirationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class ExpirationsController extends Controller
 {
@@ -39,21 +42,8 @@ class ExpirationsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreExpirationRequest $request)
     {
-        $validator = Validator::make($request->all(), [
-            'qty' => 'required|integer',
-            'expiration' => 'required|date',
-            'upc' => 'required|exists:products,upc'
-        ]);
-
-        if ($validator->fails()) {
-            return new Response([
-                'msg' => 'Failed to validate data',
-                'errors' => $validator->errors(),
-            ], 400);
-        }
-
         $product = Product::where('upc', $request->input('upc'))->first();
         $expiration = $product->expirations()->create($request->all());
 
@@ -72,9 +62,9 @@ class ExpirationsController extends Controller
             ->find($id);
 
         if (!$expiration) {
-            return new Response([
-                'msg' => 'Expiration does not exist'
-            ], 404);
+            throw new HttpResponseException(response()->json([
+                'msg' => 'Expiration does not exist',
+            ]), 404);
         }
 
         return $expiration;
@@ -87,14 +77,14 @@ class ExpirationsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateExpirationRequest $request, $id)
     {
         $expiration = Expiration::find($id);
 
         if (!$expiration) {
-            return new Response([
-                'msg' => 'Expiration does not exist'
-            ], 404);
+            throw new HttpResponseException(response()->json([
+                'msg' => 'Expiration does not exist',
+            ]), 404);
         }
 
         $validator = Validator::make($request->all(), [
@@ -119,9 +109,9 @@ class ExpirationsController extends Controller
         $expiration = Expiration::find($id);
 
         if (!$expiration) {
-            return new Response([
-                'msg' => 'Expiration does not exist'
-            ], 404);
+            throw new HttpResponseException(response()->json([
+                'msg' => 'Expiration does not exist',
+            ]), 404);
         }
 
         $expiration->delete();

@@ -61,7 +61,7 @@ class ProductTest extends TestCase
             'Authorization' => 'Bearer '.$token,
         ])->json('POST', '/api/products', [
             'name' => 'My new product',
-            'upc' => '09384762748273',
+            'upc' => '0938476748273',
             'img' => 'https://imgur.com/photo.jpg',
         ]);
 
@@ -69,7 +69,7 @@ class ProductTest extends TestCase
         $res->assertJson([
             'id' => $user->products()->first()->id,
             'name' => 'My new product',
-            'upc' => '09384762748273',
+            'upc' => '0938476748273',
             'img' => 'https://imgur.com/photo.jpg',
         ]);
     }
@@ -88,6 +88,7 @@ class ProductTest extends TestCase
             'Authorization' => 'Bearer '.$token,
         ])->json('PUT', '/api/products/'.$prod->upc, [
             'name' => 'New product name',
+            'upc' => $prod->upc,
         ]);
 
         $res->assertStatus(200);
