@@ -18,7 +18,7 @@ class Jwt
         if (!auth()->user()) {
             return response()->json([
                 'msg' => 'You are not logged in!'
-            ], 400);
+            ], 401);
         }
 
         return $next($request);
