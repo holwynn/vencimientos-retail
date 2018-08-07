@@ -15,12 +15,10 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')->unsigned();
             $table->string('name');
             $table->string('img')->nullable();
             $table->string('upc', 13)->unique();
-
-            $table->foreign('user_id')->references('id')->on('users');
+            
             $table->timestamps();
         });
     }

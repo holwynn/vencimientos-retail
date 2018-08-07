@@ -67,7 +67,7 @@ class ProductTest extends TestCase
 
         $res->assertStatus(201);
         $res->assertJson([
-            'id' => $user->products()->first()->id,
+            'id' => \App\Product::first()->id,
             'name' => 'My new product',
             'upc' => '0938476748273',
             'img' => 'https://imgur.com/photo.jpg',
@@ -82,7 +82,9 @@ class ProductTest extends TestCase
     public function testShouldAllowPutProducts()
     {
         $prod = factory(\App\Product::class)->create();
-        $token = auth()->tokenById($prod->user->id);
+
+        $user = factory(\App\User::class)->create();
+        $token = auth()->tokenById($user->id);
 
         $res = $this->withHeaders([
             'Authorization' => 'Bearer '.$token,
@@ -106,7 +108,9 @@ class ProductTest extends TestCase
     public function testShouldAllowDeleteProducts()
     {
         $prod = factory(\App\Product::class)->create();
-        $token = auth()->tokenById($prod->user->id);
+        
+        $user = factory(\App\User::class)->create();
+        $token = auth()->tokenById($user->id);
 
         $res = $this->withHeaders([
             'Authorization' => 'Bearer '.$token,

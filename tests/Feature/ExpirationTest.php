@@ -56,7 +56,9 @@ class ExpirationTest extends TestCase
     public function testShouldAllowPostExirations()
     {
         $prod = factory(\App\Product::class)->create();
-        $token = auth()->tokenById($prod->user->id);
+        
+        $user = factory(\App\User::class)->create();
+        $token = auth()->tokenById($user->id);
 
         $res = $this->withHeaders([
             'Authorization' => 'Bearer '.$token,
@@ -81,7 +83,9 @@ class ExpirationTest extends TestCase
     public function testShouldAllowPutExirations()
     {
         $expiration = factory(\App\Expiration::class)->create();
-        $token = auth()->tokenById($expiration->product->user->id);
+        
+        $user = factory(\App\User::class)->create();
+        $token = auth()->tokenById($user->id);
 
         $res = $this->withHeaders([
             'Authorization' => 'Bearer '.$token,
@@ -105,7 +109,9 @@ class ExpirationTest extends TestCase
     public function testShouldAllowDeleteExirations()
     {
         $expiration = factory(\App\Expiration::class)->create();
-        $token = auth()->tokenById($expiration->product->user->id);
+        
+        $user = factory(\App\User::class)->create();
+        $token = auth()->tokenById($user->id);
 
         $res = $this->withHeaders([
             'Authorization' => 'Bearer '.$token,

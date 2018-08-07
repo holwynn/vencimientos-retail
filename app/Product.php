@@ -16,10 +16,6 @@ class Product extends Model
         'img',
     ];
 
-    protected $hidden = [
-        'user_id'
-    ];
-
     public function fromWalmart($upc) {
         $res = file_get_contents(self::WALMART_URL . $upc);
         $json = json_decode($res);
@@ -33,10 +29,6 @@ class Product extends Model
         $this->img = $json[0]->items[0]->images[0]->imageUrl;
 
         return $this;
-    }
-
-    public function user() {
-        return $this->belongsTo(User::class);
     }
 
     public function expirations() {
