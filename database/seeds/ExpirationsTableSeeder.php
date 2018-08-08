@@ -13,11 +13,9 @@ class ExpirationsTableSeeder extends Seeder
      */
     public function run()
     {
-        foreach (Product::all() as $product) {
-            $product->expirations()->create([
-                'qty' => 10,
-                'expiration' => Carbon::now()
-            ]);
-        }
+        Product::first()->expirations()->create([
+            'expiration' => Carbon::now(),
+            'qty' => 10
+        ]);
     }
 }
