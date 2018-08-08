@@ -62,9 +62,7 @@ class ExpirationsController extends Controller
             ->find($id);
 
         if (!$expiration) {
-            throw new HttpResponseException(response()->json([
-                'msg' => 'Expiration does not exist',
-            ]), 404);
+            $this->throwUnknownExpiration();
         }
 
         return $expiration;
@@ -82,9 +80,7 @@ class ExpirationsController extends Controller
         $expiration = Expiration::find($id);
 
         if (!$expiration) {
-            throw new HttpResponseException(response()->json([
-                'msg' => 'Expiration does not exist',
-            ]), 404);
+            $this->throwUnknownExpiration();
         }
 
         $validator = Validator::make($request->all(), [
@@ -109,9 +105,7 @@ class ExpirationsController extends Controller
         $expiration = Expiration::find($id);
 
         if (!$expiration) {
-            throw new HttpResponseException(response()->json([
-                'msg' => 'Expiration does not exist',
-            ]), 404);
+            $this->throwUnknownExpiration();
         }
 
         $expiration->delete();
@@ -119,5 +113,11 @@ class ExpirationsController extends Controller
         return new Response([
             'msg' => 'Expiration deleted'
         ], 200);
+    }
+
+    public function throwUnknownExpiration() {
+        throw new HttpResponseException(response()->json([
+            'msg' => 'Expiration does not exist',
+        ]), 404);
     }
 }

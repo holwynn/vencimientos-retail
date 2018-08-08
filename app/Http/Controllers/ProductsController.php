@@ -55,12 +55,20 @@ class ProductsController extends Controller
      */
     public function show($upc)
     {
+        if (strlen($upc) != 13) {
+            $this->throwUnknownProduct();
+        }
+
         $product = Product::where('upc', $upc)->first();
 
+        if ($product) {
+            return $product;
+        }
+
+        $product = $this->fromWalmart($upc);
+
         if (!$product) {
-            throw new HttpResponseException(response()->json([
-                'msg' => 'Product does not exist',
-            ]), 404);
+            $this->throwUnknownProduct();
         }
 
         return $product;
@@ -78,9 +86,7 @@ class ProductsController extends Controller
         $product = Product::where('upc', $upc)->first();
 
         if (!$product) {
-            throw new HttpResponseException(response()->json([
-                'msg' => 'Product does not exist',
-            ], 404));
+            $this->throwUnknownProduct();
         }
 
         $product->update($request->all());
@@ -100,9 +106,7 @@ class ProductsController extends Controller
         $product = Product::where('upc', $upc)->first();
 
         if (!$product) {
-            throw new HttpResponseException(response()->json([
-                'msg' => 'Product does not exist',
-            ], 404));
+            $this->throwUnknownProduct();
         }
 
         $product->delete();
@@ -110,5 +114,23 @@ class ProductsController extends Controller
         return new Response([
             'msg' => 'Product deleted'
         ], 200);
+    }
+
+    private function throwUnknownProduct() {
+        throw new HttpResponseException(response()->json([
+            'msg' => 'Product does not exist',
+        ]), 404);
+    }
+
+    private function fromWalmart($upc) {
+        $product = new Product();
+        $product->fromWalmart($upc);
+
+        if (!$product->name) {
+            return false;
+        }
+
+        $product->save();
+        return $product;
     }
 }
