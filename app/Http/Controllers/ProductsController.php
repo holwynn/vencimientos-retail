@@ -116,12 +116,23 @@ class ProductsController extends Controller
         ], 200);
     }
 
+    /**
+     * Throw 404 if product doesn't exist
+     * 
+     * @return Illuminate\Http\Exceptions\HttpResponseException
+     */
     private function throwUnknownProduct() {
         throw new HttpResponseException(response()->json([
             'msg' => 'Product does not exist',
         ]), 404);
     }
 
+    /**
+     * Search and save a product from walmart db
+     * 
+     * @param str $upc
+     * @return App\Product
+     */
     private function fromWalmart($upc) {
         $product = new Product();
         $product->fromWalmart($upc);

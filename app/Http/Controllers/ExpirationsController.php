@@ -115,6 +115,11 @@ class ExpirationsController extends Controller
         ], 200);
     }
 
+    /**
+     * Throw 404 if expiration doesn't exist
+     * 
+     * @return Illuminate\Http\Exceptions\HttpResponseException
+     */
     public function throwUnknownExpiration() {
         throw new HttpResponseException(response()->json([
             'msg' => 'Expiration does not exist',
