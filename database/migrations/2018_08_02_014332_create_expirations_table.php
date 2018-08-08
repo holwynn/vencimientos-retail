@@ -15,11 +15,14 @@ class CreateExpirationsTable extends Migration
     {
         Schema::create('expirations', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('product_id')->unsigned();
             $table->integer('qty');
-            $table->date('expiration');
-
+            $table->dateTime('expiration');
+            
+            $table->integer('product_id')->unsigned();
             $table->foreign('product_id')->references('id')->on('products');
+
+            $table->integer('store_id')->unsigned()->default(1);
+            $table->foreign('store_id')->references('id')->on('stores');
             $table->timestamps();
         });
     }

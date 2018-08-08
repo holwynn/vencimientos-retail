@@ -2,8 +2,9 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Product;
+use App\Store;
+use Illuminate\Database\Eloquent\Model;
 
 class Expiration extends Model
 {
@@ -14,5 +15,9 @@ class Expiration extends Model
 
     public function product() {
         return $this->belongsTo(Product::class);
+    }
+
+    public function store() {
+        return $this->belongsTo(Store::class);
     }
 }
