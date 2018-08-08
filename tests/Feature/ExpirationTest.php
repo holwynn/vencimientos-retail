@@ -10,12 +10,8 @@ class ExpirationTest extends TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * Test GET /api/expirations
-     *
-     * @return void
-     */
-    public function test_should_get_expirations()
+    /** @test */
+    public function it_shows_expirations()
     {
         $expiration = factory(\App\Expiration::class)->create();
 
@@ -29,12 +25,8 @@ class ExpirationTest extends TestCase
         ]]);
     }
 
-    /**
-     * Test GET /api/expirations{id}
-     *
-     * @return void
-     */
-    public function test_should_get_expirations_by_id()
+    /** @test */
+    public function it_shows_expirations_by_id()
     {
         $expiration = factory(\App\Expiration::class)->create();
 
@@ -48,12 +40,8 @@ class ExpirationTest extends TestCase
         ]);
     }
 
-    /**
-     * Test POST /api/expirations
-     *
-     * @return  void
-     */
-    public function test_should_allow_post_expirations()
+    /** @test */
+    public function it_creates_expirations()
     {
         $prod = factory(\App\Product::class)->create();
         
@@ -75,12 +63,8 @@ class ExpirationTest extends TestCase
         ]);
     }
 
-    /**
-     * Test PUT /api/expirations/{id}
-     *
-     * @return  void
-     */
-    public function test_should_allow_put_expirations()
+    /** @test */
+    public function it_updates_expirations()
     {
         $expiration = factory(\App\Expiration::class)->create();
         
@@ -103,12 +87,8 @@ class ExpirationTest extends TestCase
         ]);
     }
 
-    /**
-     * Test DELETE /api/expirations/{id}
-     *
-     * @return  void
-     */
-    public function test_should_allow_delete_expirations()
+    /** @test */
+    public function it_deletes_expirations()
     {
         $expiration = factory(\App\Expiration::class)->create();
         
@@ -125,12 +105,8 @@ class ExpirationTest extends TestCase
         ]);
     }
 
-    /**
-     * Test unauthorized POST /api/expirations
-     *
-     * @return  void
-     */
-    public function test_should_not_allow_post_expirations_if_unauthorized()
+    /** @test */
+    public function it_doesnt_create_expirations_if_unauthorized()
     {
         $prod = factory(\App\Product::class)->create();
 
@@ -143,12 +119,8 @@ class ExpirationTest extends TestCase
         $res->assertStatus(401);
     }
 
-    /**
-     * Test unauthorized PUT /api/expirations
-     *
-     * @return  void
-     */
-    public function test_should_not_allow_put_expirations_if_unauthorized()
+    /** @test */
+    public function it_doesnt_update_expirations_if_unauthorized()
     {
         $expiration = factory(\App\Expiration::class)->create();
 
@@ -159,12 +131,8 @@ class ExpirationTest extends TestCase
         $res->assertStatus(401);
     }
 
-    /**
-     * Test unauthorized DELETE /api/expirations
-     *
-     * @return  void
-     */
-    public function test_should_not_allow_delete_expirations_if_unauthorized()
+    /** @test */
+    public function it_doesnt_delete_expirations_if_unauthorized()
     {
         $expiration = factory(\App\Expiration::class)->create();
 

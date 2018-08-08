@@ -10,12 +10,8 @@ class ProductTest extends TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * Test GET /api/products
-     *
-     * @return void
-     */
-    public function test_should_get_products()
+    /** @test */
+    public function it_shows_products()
     {
         $prod = factory(\App\Product::class)->create();
 
@@ -28,12 +24,8 @@ class ProductTest extends TestCase
         ]]);
     }
 
-    /**
-     * Test GET /api/products/{upc}
-     *
-     * @return void
-     */
-    public function test_should_get_products_by_upc()
+    /** @test */
+    public function it_shows_products_by_upc()
     {
         $prod = factory(\App\Product::class)->create();
 
@@ -47,12 +39,8 @@ class ProductTest extends TestCase
         ]);
     }
 
-    /**
-     * Test POST /api/products
-     *
-     * @return  void
-     */
-    public function test_should_allow_post_products()
+    /** @test */
+    public function it_creates_products()
     {
         $user = factory(\App\User::class)->create();
         $token = auth()->tokenById($user->id);
@@ -74,12 +62,8 @@ class ProductTest extends TestCase
         ]);
     }
 
-    /**
-     * Test PUT /api/products
-     *
-     * @return  void
-     */
-    public function test_should_allow_put_products()
+    /** @test */
+    public function it_updates_products()
     {
         $prod = factory(\App\Product::class)->create();
 
@@ -100,12 +84,8 @@ class ProductTest extends TestCase
     }
 
 
-    /**
-     * Test DELETE /api/products/{upc}
-     *
-     * @return  void
-     */
-    public function test_should_allow_delete_products()
+    /** @test */
+    public function it_deletes_products()
     {
         $prod = factory(\App\Product::class)->create();
         
@@ -122,12 +102,8 @@ class ProductTest extends TestCase
         ]);
     }
 
-    /**
-     * Test unauthorized POST /api/products
-     *
-     * @return  void
-     */
-    public function test_should_not_allow_post_products_if_unauthorized()
+    /** @test */
+    public function it_doesnt_create_products_if_unauthorized()
     {
         $res = $this->json('POST', '/api/products', [
             'name' => 'My new product',
@@ -141,12 +117,8 @@ class ProductTest extends TestCase
         ]);
     }
 
-    /**
-     * Test unauthorized PUT /api/products/{upc}
-     *
-     * @return  void
-     */
-    public function test_should_not_allow_put_products_if_unauthorized()
+    /** @test */
+    public function it_doesnt_update_products_if_unauthorized()
     {
         $prod = factory(\App\Product::class)->create();
 
@@ -160,12 +132,8 @@ class ProductTest extends TestCase
         ]);
     }
 
-    /**
-     * Test unauthorized DELETE /api/products/{upc}
-     *
-     * @return  void
-     */
-    public function test_should_not_allow_delete_products_if_unauthorized()
+    /** @test */
+    public function it_doesnt_delete_products_if_unauthorized()
     {
         $prod = factory(\App\Product::class)->create();
 
