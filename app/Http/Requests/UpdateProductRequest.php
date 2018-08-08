@@ -29,6 +29,7 @@ class UpdateProductRequest extends FormRequest
             'name' => 'required|string',
             'upc' => 'required|string|min:13|max:13',
             'img' => 'string',
+            'checked' => 'boolean',
         ];
     }
 
@@ -45,6 +46,7 @@ class UpdateProductRequest extends FormRequest
             'upc.unique' => 'A product with that UPC code is already registered.',
             'upc.min' => 'UPC code must be exactly 13 characters',
             'upc.max' => 'UPC code must be exactly 13 characters',
+            'checked.boolean' => 'Checked value must be boolean'
         ];
     }
 

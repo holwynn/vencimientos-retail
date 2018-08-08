@@ -10,7 +10,8 @@ class Expiration extends Model
 {
     protected $fillable = [
         'qty',
-        'expiration'
+        'expiration',
+        'checked',
     ];
 
     public function product() {

@@ -83,11 +83,6 @@ class ExpirationsController extends Controller
             $this->throwUnknownExpiration();
         }
 
-        $validator = Validator::make($request->all(), [
-            'qty' => 'string',
-            'expiration' => 'date',
-        ]);
-
         $expiration->update($request->all());
         $expiration->save();
 
