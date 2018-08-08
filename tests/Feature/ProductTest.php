@@ -15,7 +15,7 @@ class ProductTest extends TestCase
      *
      * @return void
      */
-    public function testShouldGetProducts()
+    public function test_should_get_products()
     {
         $prod = factory(\App\Product::class)->create();
 
@@ -33,7 +33,7 @@ class ProductTest extends TestCase
      *
      * @return void
      */
-    public function testShouldGetProductsByUpc()
+    public function test_should_get_products_by_upc()
     {
         $prod = factory(\App\Product::class)->create();
 
@@ -52,7 +52,7 @@ class ProductTest extends TestCase
      *
      * @return  void
      */
-    public function testShouldAllowPostProduct()
+    public function test_should_allow_post_products()
     {
         $user = factory(\App\User::class)->create();
         $token = auth()->tokenById($user->id);
@@ -79,7 +79,7 @@ class ProductTest extends TestCase
      *
      * @return  void
      */
-    public function testShouldAllowPutProducts()
+    public function test_should_allow_put_products()
     {
         $prod = factory(\App\Product::class)->create();
 
@@ -105,7 +105,7 @@ class ProductTest extends TestCase
      *
      * @return  void
      */
-    public function testShouldAllowDeleteProducts()
+    public function test_should_allow_delete_products()
     {
         $prod = factory(\App\Product::class)->create();
         
@@ -127,7 +127,7 @@ class ProductTest extends TestCase
      *
      * @return  void
      */
-    public function testShouldNotAllowPostProductIfUnauthorized()
+    public function test_should_not_allow_post_products_if_unauthorized()
     {
         $res = $this->json('POST', '/api/products', [
             'name' => 'My new product',
@@ -146,7 +146,7 @@ class ProductTest extends TestCase
      *
      * @return  void
      */
-    public function testShouldNotAllowPutProductsIfUnauthorized()
+    public function test_should_not_allow_put_products_if_unauthorized()
     {
         $prod = factory(\App\Product::class)->create();
 
@@ -165,7 +165,7 @@ class ProductTest extends TestCase
      *
      * @return  void
      */
-    public function testShouldNotAllowDeleteProductsIfUnauthorized()
+    public function test_should_not_allow_delete_products_if_unauthorized()
     {
         $prod = factory(\App\Product::class)->create();
 

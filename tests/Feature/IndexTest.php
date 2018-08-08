@@ -12,7 +12,7 @@ class IndexTest extends TestCase
      *
      * @return void
      */
-    public function testBasicTest()
+    public function test_index_route()
     {
         $this->get('/')
             ->assertStatus(200);

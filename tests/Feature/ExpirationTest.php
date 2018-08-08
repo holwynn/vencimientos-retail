@@ -15,7 +15,7 @@ class ExpirationTest extends TestCase
      *
      * @return void
      */
-    public function testShouldGetExpirations()
+    public function test_should_get_expirations()
     {
         $expiration = factory(\App\Expiration::class)->create();
 
@@ -34,7 +34,7 @@ class ExpirationTest extends TestCase
      *
      * @return void
      */
-    public function testShouldGetExpirationsById()
+    public function test_should_get_expirations_by_id()
     {
         $expiration = factory(\App\Expiration::class)->create();
 
@@ -53,7 +53,7 @@ class ExpirationTest extends TestCase
      *
      * @return  void
      */
-    public function testShouldAllowPostExirations()
+    public function test_should_allow_post_expirations()
     {
         $prod = factory(\App\Product::class)->create();
         
@@ -80,7 +80,7 @@ class ExpirationTest extends TestCase
      *
      * @return  void
      */
-    public function testShouldAllowPutExirations()
+    public function test_should_allow_put_expirations()
     {
         $expiration = factory(\App\Expiration::class)->create();
         
@@ -108,7 +108,7 @@ class ExpirationTest extends TestCase
      *
      * @return  void
      */
-    public function testShouldAllowDeleteExirations()
+    public function test_should_allow_delete_expirations()
     {
         $expiration = factory(\App\Expiration::class)->create();
         
@@ -130,7 +130,7 @@ class ExpirationTest extends TestCase
      *
      * @return  void
      */
-    public function testShouldNotAllowPostExirationsIfUnauthorized()
+    public function test_should_not_allow_post_expirations_if_unauthorized()
     {
         $prod = factory(\App\Product::class)->create();
 
@@ -148,7 +148,7 @@ class ExpirationTest extends TestCase
      *
      * @return  void
      */
-    public function testShouldNotAllowPutExirationsIfUnauthorized()
+    public function test_should_not_allow_put_expirations_if_unauthorized()
     {
         $expiration = factory(\App\Expiration::class)->create();
 
@@ -164,7 +164,7 @@ class ExpirationTest extends TestCase
      *
      * @return  void
      */
-    public function testShouldNotAllowDeleteExirationsIfUnauthorized()
+    public function test_should_not_allow_delete_expirations_if_unauthorized()
     {
         $expiration = factory(\App\Expiration::class)->create();
 
