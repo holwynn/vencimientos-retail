@@ -3,10 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Contracts\Validation\Validator;
-use Illuminate\Http\Exceptions\HttpResponseException;
 
-class StoreProductRequest extends FormRequest
+class UpdateProfileRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,8 +25,7 @@ class StoreProductRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
-            'upc' => 'required|string|min:13|max:13|unique:products,upc',
-            'img' => 'nullable|string',
+            'email' => 'required|email'
         ];
     }
 
@@ -41,10 +38,8 @@ class StoreProductRequest extends FormRequest
     {
         return [
             'name.required' => 'A name is required.',
-            'upc.required'  => 'UPC code is required.',
-            'upc.unique' => 'A product with that UPC code is already registered.',
-            'upc.min' => 'UPC code must be exactly 13 characters',
-            'upc.max' => 'UPC code must be exactly 13 characters',
+            'email.required' => 'An email is required',
+            'email.email' => 'That\'s not a valid email!'
         ];
     }
 }

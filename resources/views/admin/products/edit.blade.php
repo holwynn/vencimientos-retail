@@ -3,23 +3,14 @@
 @section('content')
 <main class='main-content bgc-grey-100'>
   <div id='mainContent'>
-    {{-- Errors --}}
-    <div class="row gap-20">
-      @if ($errors->any())
-      <div class="alert alert-danger">
-        <ul>
-          @foreach ($errors->all() as $error)
-          <li>{{ $error }}</li>
-          @endforeach
-        </ul>
-      </div>
-      @endif
-    </div>
-
     <div class="row gap-20 masonry pos-r">
       <div class="masonry-sizer col-md-4"></div>
       <div class="masonry-item col-md-8">
         <div class="bgc-white p-20 bd">
+          {{-- Errors --}}
+          @include('admin.components.errors')
+          @include('admin.components.flash')
+
           <h6 class="c-grey-900">Editar producto</h6>
           <div class="mT-30">
             <form method="POST" action="{{ route('admin.products.update', ['id' => $product->id]) }}">
@@ -36,7 +27,7 @@
                 <small>No es posible modificar el UPC el producto.</small>
               </div>
               <div class="form-group">
-                <label for="">Imagen</label>
+                <label for="">Imagen <small>(opcional)</small></label>
                 <input type="text" name="img" value="{{ $product->img }}" class="form-control" placeholder="{{ $product->img }}">
               </div>
               <button type="submit" class="btn btn-primary">Actualizar</button>

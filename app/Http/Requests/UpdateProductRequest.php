@@ -3,8 +3,6 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Contracts\Validation\Validator;
-use Illuminate\Http\Exceptions\HttpResponseException;
 
 class UpdateProductRequest extends FormRequest
 {
@@ -28,7 +26,7 @@ class UpdateProductRequest extends FormRequest
         return [
             'name' => 'required|string',
             'upc' => 'required|string|min:13|max:13',
-            'img' => 'string',
+            'img' => 'nullable|string',
             'checked' => 'boolean',
         ];
     }

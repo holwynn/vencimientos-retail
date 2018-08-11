@@ -53,7 +53,7 @@
             <a class='sidebar-link' href="{{ route('admin.products') }}">Lista</a>
           </li>
           <li>
-            <a class='sidebar-link' href="datatable.html">Agregar</a>
+            <a class='sidebar-link' href="{{ route('admin.products.create') }}">Agregar</a>
           </li>
         </ul>
       </li>

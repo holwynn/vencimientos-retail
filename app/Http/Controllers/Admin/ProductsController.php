@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Product;
+use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -48,6 +49,40 @@ class ProductsController extends Controller
         ]);
     }
 
+    public function create()
+    {
+        return view('admin.products.create');
+    }
+
+    public function store(StoreProductRequest $request)
+    {
+        $product = Product::create($request->all());
+
+        $request->session()->flash('message-s', 'El producto ha sido creado.');
+        return view('admin.products.edit', [
+            'product' => $product
+        ]);
+    }
+
+    public function walmart(Request $request)
+    {
+        $product = Product::where('upc', $request->input('upc'))->first();
+
+        if (!$product) {
+            $product = $this->fromWalmart($request->input('upc'));
+
+            if (!$product) {
+                $request->session()->flash('message-d', 'No se ha encontrado el producto. Ingreselo manualmente.');
+                return view('admin.products.create');
+            }
+        }
+
+        $request->session()->flash('message-s', 'El producto ha sido creado.');
+        return view('admin.products.edit', [
+            'product' => $product
+        ]);
+    }
+
     /**
      * Update a product
      *
@@ -60,8 +95,29 @@ class ProductsController extends Controller
         $product->update($request->all());
         $product->save();
 
-        return view('admin.product', [
-            'product' => $product
-        ]);
+        $request->session()->flash('message-s', 'El producto ha sido actualizado.');
+        return redirect()->back();
+
+        // return view('admin.product', [
+        //     'product' => $product
+        // ]);
+    }
+
+    /**
+     * Search and save a product from walmart db
+     * 
+     * @param str $upc
+     * @return App\Product
+     */
+    private function fromWalmart($upc) {
+        $product = new Product();
+        $product->fromWalmart($upc);
+
+        if (!$product->name) {
+            return false;
+        }
+
+        $product->save();
+        return $product;
     }
 }

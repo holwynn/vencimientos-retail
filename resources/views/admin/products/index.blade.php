@@ -19,7 +19,13 @@
               <tbody>
                 @foreach ($products as $product)
                   <tr>
-                    <td class="text-center"><img height="50px" src="{{ $product->img }}" alt=""></td>
+                    <td class="text-center">
+                      @if ($product->img)
+                        <img height="50px" src="{{ $product->img }}" alt="">
+                      @else
+                        <i class="fa fa-shopping-cart fa-3x" aria-hidden="true"></i>
+                      @endif
+                    </td>
                     <td>
                       <a href="{{ route('admin.products.edit', ['id' => $product->id]) }}">
                         {{ $product->name }}
