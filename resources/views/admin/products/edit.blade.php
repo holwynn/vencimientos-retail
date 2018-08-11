@@ -24,7 +24,7 @@
               <div class="form-group">
                 <label for="">UPC</label>
                 <input type="text" name="upc" value="{{ $product->upc }}" class="form-control" placeholder="{{ $product->upc }}" readonly>
-                <small>No es posible modificar el UPC el producto.</small>
+                <small>No es posible modificar el UPC del producto.</small>
               </div>
               <div class="form-group">
                 <label for="">Imagen <small>(opcional)</small></label>

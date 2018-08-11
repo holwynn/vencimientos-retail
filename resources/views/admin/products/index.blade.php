@@ -8,12 +8,24 @@
         <div class="col-md-12">
           <div class="bgc-white bd bdrs-3 p-20 mB-20">
             <h4 class="c-grey-900 mB-20">Listado de productos</h4>
-            <table class="table table-bordered">
+
+            <div class="float-left">
+              {{ $products->links() }}
+            </div>
+
+            <div class="float-right">
+              <a href="{{ route('admin.products.create') }}"><button class="btn btn-success">Crear</button></a>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <table class="table table-bordered table-hover" style="margin-top: 15px;">
               <thead class="thead">
                 <tr>
                   <th width="10%" scope="col">Imagen</th>
                   <th scope="col">Nombre</th>
                   <th scope="col">UPC</th>
+                  <th width="10%">Opciones</th>
                 </tr>
               </thead>
               <tbody>
@@ -32,14 +44,13 @@
                       </a>
                     </td>
                     <td>{{ $product->upc }}</td>
+                    <td>
+                      <a href="{{ route('admin.products.edit', ['id' => $product->id]) }}"><button class="btn btn-primary">Editar</button></a>
+                    </td>
                   </tr>
                 @endforeach
               </tbody>
             </table>
-
-            <div>
-              {{ $products->links() }}
-            </div>
           </div>
         </div>
       </div>
