@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Product;
-use App\Expiration;
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class DashboardController extends Controller
+class UsersController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -20,18 +19,16 @@ class DashboardController extends Controller
     }
 
     /**
-     * Show the application dashboard.
+     * Show a user
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function show($id)
     {
-        $productsCount = Product::count();
-        $expirationsCount = Expiration::count();
+        $user = User::find($id);
 
-        return view('admin.dashboard', [
-            'products' => $productsCount,
-            'expirations' => $expirationsCount,
+        return view('admin.user', [
+            'user' => $user
         ]);
     }
 }

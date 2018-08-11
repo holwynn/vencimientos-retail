@@ -50,7 +50,7 @@
         </a>
         <ul class="dropdown-menu">
           <li>
-            <a class='sidebar-link' href="basic-table.html">Lista</a>
+            <a class='sidebar-link' href="{{ route('admin.products') }}">Lista</a>
           </li>
           <li>
             <a class='sidebar-link' href="datatable.html">Agregar</a>
@@ -85,7 +85,7 @@
         </a>
       </li> --}}
       <li class="nav-item">
-        <a class='sidebar-link' href="forms.html">
+        <a class='sidebar-link' href="{{ route('admin.users.show', ['id' => auth()->user()->id]) }}">
           <span class="icon-holder">
             <i class="c-light-blue-500 ti-pencil"></i>
           </span>
@@ -95,7 +95,7 @@
       <li class="nav-item dropdown">
         <a class="dropdown-toggle" href="javascript:void(0);">
           <span class="icon-holder">
-            <i class="c-red-500 ti-files"></i>
+            <i class="c-red-500 ti-settings"></i>
           </span>
           <span class="title">Administracion</span>
           <span class="arrow">

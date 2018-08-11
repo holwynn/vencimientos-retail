@@ -8,18 +8,18 @@
       <div class="masonry-item  w-100">
         <div class="row gap-20">
           <!-- #Toatl Visits ==================== -->
-          <div class='col-md-3'>
+          <div class='col-md-4'>
             <div class="layers bd bgc-white p-20">
               <div class="layer w-100 mB-10">
-                <h6 class="lh-1">Total Visits</h6>
+                <h6 class="lh-1">Productos totales</h6>
               </div>
               <div class="layer w-100">
                 <div class="peers ai-sb fxw-nw">
                   <div class="peer peer-greed">
-                    <span id="sparklinedash"></span>
+                    <i class="fa fa-shopping-cart fa-2x" aria-hidden="true"></i>
                   </div>
                   <div class="peer">
-                    <span class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-green-50 c-green-500">+10%</span>
+                    <span class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-green-50 c-green-500">{{ $products }}</span>
                   </div>
                 </div>
               </div>
@@ -27,18 +27,18 @@
           </div>
           
           <!-- #Total Page Views ==================== -->
-          <div class='col-md-3'>
+          <div class='col-md-4'>
             <div class="layers bd bgc-white p-20">
               <div class="layer w-100 mB-10">
-                <h6 class="lh-1">Total Page Views</h6>
+                <h6 class="lh-1">Vencimientos totales</h6>
               </div>
               <div class="layer w-100">
                 <div class="peers ai-sb fxw-nw">
                   <div class="peer peer-greed">
-                    <span id="sparklinedash2"></span>
+                    <i class="fa fa-calendar fa-2x" aria-hidden="true"></i>
                   </div>
                   <div class="peer">
-                    <span class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-red-50 c-red-500">-7%</span>
+                    <span class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-red-50 c-red-500">{{ $expirations }}</span>
                   </div>
                 </div>
               </div>
@@ -46,37 +46,18 @@
           </div>
           
           <!-- #Unique Visitors ==================== -->
-          <div class='col-md-3'>
+          <div class='col-md-4'>
             <div class="layers bd bgc-white p-20">
               <div class="layer w-100 mB-10">
-                <h6 class="lh-1">Unique Visitor</h6>
+                <h6 class="lh-1">Vencimientos proximos</h6>
               </div>
               <div class="layer w-100">
                 <div class="peers ai-sb fxw-nw">
                   <div class="peer peer-greed">
-                    <span id="sparklinedash3"></span>
+                    <i class="fa fa-calendar-minus-o fa-2x" aria-hidden="true"></i>
                   </div>
                   <div class="peer">
                     <span class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-purple-50 c-purple-500">~12%</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <!-- #Bounce Rate ==================== -->
-          <div class='col-md-3'>
-            <div class="layers bd bgc-white p-20">
-              <div class="layer w-100 mB-10">
-                <h6 class="lh-1">Bounce Rate</h6>
-              </div>
-              <div class="layer w-100">
-                <div class="peers ai-sb fxw-nw">
-                  <div class="peer peer-greed">
-                    <span id="sparklinedash4"></span>
-                  </div>
-                  <div class="peer">
-                    <span class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-blue-50 c-blue-500">33%</span>
                   </div>
                 </div>
               </div>
@@ -121,18 +102,15 @@
         <!-- #Sales Report ==================== -->
         <div class="bd bgc-white">
           <div class="layers">
-            <div class="layer w-100 p-20">
-              <h6 class="lh-1">Sales Report</h6>
-            </div>
             <div class="layer w-100">
               <div class="bgc-light-blue-500 c-white p-20">
                 <div class="peers ai-c jc-sb gap-40">
                   <div class="peer peer-greed">
-                    <h5>November 2017</h5>
-                    <p class="mB-0">Sales Report</p>
+                    <h5>Agosto 2018</h5>
+                    <p class="mB-0">Vencimientos del mes</p>
                   </div>
                   <div class="peer">
-                    <h3 class="text-right">$6,000</h3>
+                    <h3 class="text-right">12</h3>
                   </div>
                 </div>
               </div>
@@ -140,8 +118,8 @@
                 <table class="table">
                   <thead>
                     <tr>
-                      <th class=" bdwT-0">Name</th>
-                      <th class=" bdwT-0">Status</th>
+                      <th class=" bdwT-0">Nombre</th>
+                      <th class=" bdwT-0">Dia</th>
                       <th class=" bdwT-0">Date</th>
                       <th class=" bdwT-0">Price</th>
                     </tr>
