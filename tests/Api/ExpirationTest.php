@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Api;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -139,5 +139,22 @@ class ExpirationTest extends TestCase
         $res = $this->json('DELETE', '/api/expirations/'.$expiration->id);
 
         $res->assertStatus(401);
+    }
+
+    /** @test */
+    public function it_fails_validation()
+    {
+        $expiration = factory(\App\Expiration::class)->create();
+        
+        $user = factory(\App\User::class)->create();
+        $token = auth('api')->tokenById($user->id);
+
+        $res = $this->withHeaders([
+            'Authorization' => 'Bearer '.$token,
+        ])->json('PUT', '/api/expirations/'.$expiration->id, [
+            'qty' => 12,
+        ]);
+
+        $res->assertStatus(422);
     }
 }

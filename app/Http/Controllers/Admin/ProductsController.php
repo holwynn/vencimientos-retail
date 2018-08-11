@@ -41,7 +41,7 @@ class ProductsController extends Controller
      */
     public function show($id)
     {
-        $product = Product::find($id);
+        $product = Product::findOrFail($id);
 
         return view('admin.product', [
             'product' => $product
@@ -55,7 +55,7 @@ class ProductsController extends Controller
      */
     public function update(UpdateProductRequest $request, $id)
     {
-        $product = Product::find($id);
+        $product = Product::findOrFail($id);
 
         $product->update($request->all());
         $product->save();

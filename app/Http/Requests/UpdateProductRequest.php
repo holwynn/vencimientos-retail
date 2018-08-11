@@ -49,11 +49,4 @@ class UpdateProductRequest extends FormRequest
             'checked.boolean' => 'Checked value must be boolean'
         ];
     }
-
-    protected function failedValidation(Validator $validator) 
-    {
-        throw new HttpResponseException(
-            response()->json($validator->errors(), 422)
-        );
-    }
 }

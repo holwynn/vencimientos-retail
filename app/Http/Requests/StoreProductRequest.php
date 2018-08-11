@@ -47,11 +47,4 @@ class StoreProductRequest extends FormRequest
             'upc.max' => 'UPC code must be exactly 13 characters',
         ];
     }
-
-    protected function failedValidation(Validator $validator) 
-    {
-        throw new HttpResponseException(
-            response()->json($validator->errors(), 422)
-        );
-    }
 }

@@ -3,6 +3,19 @@
 @section('content')
 <main class='main-content bgc-grey-100'>
   <div id='mainContent'>
+    {{-- Errors --}}
+    <div class="row gap-20">
+      @if ($errors->any())
+      <div class="alert alert-danger">
+        <ul>
+          @foreach ($errors->all() as $error)
+          <li>{{ $error }}</li>
+          @endforeach
+        </ul>
+      </div>
+      @endif
+    </div>
+
     <div class="row gap-20 masonry pos-r">
       <div class="masonry-sizer col-md-4"></div>
       <div class="masonry-item col-md-8">

@@ -48,11 +48,4 @@ class StoreExpirationRequest extends FormRequest
             'upc.exists' => 'UPC code must exist in database.',
         ];
     }
-
-    protected function failedValidation(Validator $validator) 
-    {
-        throw new HttpResponseException(
-            response()->json($validator->errors(), 422)
-        );
-    }
 }

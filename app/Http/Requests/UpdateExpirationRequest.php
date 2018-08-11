@@ -44,11 +44,4 @@ class UpdateExpirationRequest extends FormRequest
             'expiration.date' => 'The expiration should be a datetime format.'
         ];
     }
-
-    protected function failedValidation(Validator $validator) 
-    {
-        throw new HttpResponseException(
-            response()->json($validator->errors(), 422)
-        );
-    }
 }

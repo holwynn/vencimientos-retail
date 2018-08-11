@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Api;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -134,5 +134,22 @@ class ProductTest extends TestCase
         $res = $this->json('DELETE', '/api/products/'.$prod->upc);
 
         $res->assertStatus(401);
+    }
+
+    /** @test */
+    public function it_fails_validation()
+    {
+        $prod = factory(\App\Product::class)->create();
+
+        $user = factory(\App\User::class)->create();
+        $token = auth('api')->tokenById($user->id);
+
+        $res = $this->withHeaders([
+            'Authorization' => 'Bearer '.$token,
+        ])->json('PUT', '/api/products/'.$prod->upc, [
+            'upc' => $prod->upc,
+        ]);
+
+        $res->assertStatus(422);
     }
 }
