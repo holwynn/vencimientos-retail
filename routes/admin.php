@@ -13,7 +13,7 @@
 
 Route::get('/', 'DashboardController@index')->name('admin.dashboard');
 Route::get('/products', 'ProductsController@index')->name('admin.products');
-Route::get('/products/{id}', 'ProductsController@show')->name('admin.products.show');
+Route::get('/products/{id}', 'ProductsController@edit')->name('admin.products.edit');
 Route::put('/products/{id}', 'ProductsController@update')->name('admin.products.update');
 
-Route::get('/users/{id}', 'UsersController@show')->name('admin.users.show');
+Route::get('/users/{id}', 'UsersController@edit')->name('admin.users.edit');

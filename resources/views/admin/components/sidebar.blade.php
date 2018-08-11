@@ -85,7 +85,7 @@
         </a>
       </li> --}}
       <li class="nav-item">
-        <a class='sidebar-link' href="{{ route('admin.users.show', ['id' => auth()->user()->id]) }}">
+        <a class='sidebar-link' href="{{ route('admin.users.edit', ['id' => auth()->user()->id]) }}">
           <span class="icon-holder">
             <i class="c-light-blue-500 ti-pencil"></i>
           </span>

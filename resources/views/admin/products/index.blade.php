@@ -21,7 +21,7 @@
                   <tr>
                     <td class="text-center"><img height="50px" src="{{ $product->img }}" alt=""></td>
                     <td>
-                      <a href="{{ route('admin.products.show', ['id' => $product->id]) }}">
+                      <a href="{{ route('admin.products.edit', ['id' => $product->id]) }}">
                         {{ $product->name }}
                       </a>
                     </td>

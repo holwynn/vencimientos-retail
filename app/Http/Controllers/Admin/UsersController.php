@@ -23,11 +23,11 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function edit($id)
     {
         $user = User::find($id);
 
-        return view('admin.user', [
+        return view('admin.users.edit', [
             'user' => $user
         ]);
     }

@@ -29,7 +29,7 @@ class ProductsController extends Controller
         $products = Product::orderBy('id', 'DESC')
             ->paginate(8);
 
-        return view('admin.products', [
+        return view('admin.products.index', [
             'products' => $products
         ]);
     }
@@ -39,11 +39,11 @@ class ProductsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function edit($id)
     {
         $product = Product::findOrFail($id);
 
-        return view('admin.product', [
+        return view('admin.products.edit', [
             'product' => $product
         ]);
     }
