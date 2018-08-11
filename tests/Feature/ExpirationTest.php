@@ -46,7 +46,7 @@ class ExpirationTest extends TestCase
         $prod = factory(\App\Product::class)->create();
         
         $user = factory(\App\User::class)->create();
-        $token = auth()->tokenById($user->id);
+        $token = auth('api')->tokenById($user->id);
 
         $res = $this->withHeaders([
             'Authorization' => 'Bearer '.$token,
@@ -69,7 +69,7 @@ class ExpirationTest extends TestCase
         $expiration = factory(\App\Expiration::class)->create();
         
         $user = factory(\App\User::class)->create();
-        $token = auth()->tokenById($user->id);
+        $token = auth('api')->tokenById($user->id);
 
         $res = $this->withHeaders([
             'Authorization' => 'Bearer '.$token,
@@ -93,7 +93,7 @@ class ExpirationTest extends TestCase
         $expiration = factory(\App\Expiration::class)->create();
         
         $user = factory(\App\User::class)->create();
-        $token = auth()->tokenById($user->id);
+        $token = auth('api')->tokenById($user->id);
 
         $res = $this->withHeaders([
             'Authorization' => 'Bearer '.$token,

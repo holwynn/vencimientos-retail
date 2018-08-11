@@ -43,7 +43,7 @@ class ProductTest extends TestCase
     public function it_creates_products()
     {
         $user = factory(\App\User::class)->create();
-        $token = auth()->tokenById($user->id);
+        $token = auth('api')->tokenById($user->id);
 
         $res = $this->withHeaders([
             'Authorization' => 'Bearer '.$token,
@@ -68,7 +68,7 @@ class ProductTest extends TestCase
         $prod = factory(\App\Product::class)->create();
 
         $user = factory(\App\User::class)->create();
-        $token = auth()->tokenById($user->id);
+        $token = auth('api')->tokenById($user->id);
 
         $res = $this->withHeaders([
             'Authorization' => 'Bearer '.$token,
@@ -90,7 +90,7 @@ class ProductTest extends TestCase
         $prod = factory(\App\Product::class)->create();
         
         $user = factory(\App\User::class)->create();
-        $token = auth()->tokenById($user->id);
+        $token = auth('api')->tokenById($user->id);
 
         $res = $this->withHeaders([
             'Authorization' => 'Bearer '.$token,
@@ -112,9 +112,6 @@ class ProductTest extends TestCase
         ]);
 
         $res->assertStatus(401);
-        $res->assertJson([
-            'msg' => 'You are not logged in!',
-        ]);
     }
 
     /** @test */
@@ -127,9 +124,6 @@ class ProductTest extends TestCase
         ]);
 
         $res->assertStatus(401);
-        $res->assertJson([
-            'msg' => 'You are not logged in!',
-        ]);
     }
 
     /** @test */
@@ -140,8 +134,5 @@ class ProductTest extends TestCase
         $res = $this->json('DELETE', '/api/products/'.$prod->upc);
 
         $res->assertStatus(401);
-        $res->assertJson([
-            'msg' => 'You are not logged in!',
-        ]);
     }
 }
