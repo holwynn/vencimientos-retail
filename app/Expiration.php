@@ -25,7 +25,7 @@ class Expiration extends Model
         return $this->belongsTo(Product::class);
     }
 
-    public function getDateFormatedAttribute()
+    public function getExpirationFormated()
     {
         return $this->expiration->format('m-d-Y');
     }

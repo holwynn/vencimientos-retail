@@ -69,7 +69,7 @@
           <li>
             <a href="{{ route('admin.users.edit', ['id' => auth()->user()->id]) }}" class="d-b td-n pY-5 bgcH-grey-100 c-grey-700">
               <i class="ti-user mR-10"></i>
-              <span>Profile</span>
+              <span>Mi perfil</span>
             </a>
           </li>
           <li role="separator" class="divider"></li>
@@ -77,7 +77,7 @@
             <a href="{{ route('logout') }}" class="d-b td-n pY-5 bgcH-grey-100 c-grey-700"
                onclick="event.preventDefault();document.getElementById('logout-form').submit();">
               <i class="ti-power-off mR-10"></i>
-              <span>Logout</span>
+              <span>Salir</span>
             </a>
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
               @csrf

@@ -14,7 +14,7 @@
             </div>
 
             <div class="float-right">
-              <a href="{{ route('admin.products.create') }}"><button class="btn btn-success">Crear</button></a>
+              <a href="{{ route('admin.products.create') }}"><button class="btn btn-success">Agregar</button></a>
             </div>
 
             <div class="clearfix"></div>
@@ -25,7 +25,7 @@
                   <th width="10%" scope="col">Imagen</th>
                   <th scope="col">Nombre</th>
                   <th scope="col">UPC</th>
-                  <th width="10%">Opciones</th>
+                  <th width="8%">Opciones</th>
                 </tr>
               </thead>
               <tbody>
