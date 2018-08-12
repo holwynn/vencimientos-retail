@@ -13,19 +13,18 @@ class ExpirationsTableSeeder extends Seeder
      */
     public function run()
     {
-        $today = Carbon::now();
         $expirationDates = [];
 
         for ($i=0; $i < 17; $i++) { 
-            $expirationDates[] = $today->addDay(rand(1, 31));
+            $expirationDates[] = Carbon::now()->addDay(rand(1, 31));
         }
 
         for ($i=0; $i < 10; $i++) { 
-            $expirationDates[] = $today->subDay(rand(1, 31));
+            $expirationDates[] = Carbon::now()->subDay(rand(1, 31));
         }
 
         for ($i=0; $i < 12; $i++) { 
-            $expirationDates[] = $today->addDay(rand(3,7))->addMonth(rand(1, 6));
+            $expirationDates[] = Carbon::now()->addDay(rand(3,7))->addMonth(rand(1, 6));
         }
 
         $product = Product::first();
