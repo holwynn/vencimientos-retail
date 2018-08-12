@@ -25,7 +25,7 @@
                   <th width="10%" scope="col">Imagen</th>
                   <th scope="col">Nombre</th>
                   <th scope="col">UPC</th>
-                  <th width="8%">Opciones</th>
+                  <th width="24%">Opciones</th>
                 </tr>
               </thead>
               <tbody>
@@ -46,6 +46,7 @@
                     <td>{{ $product->upc }}</td>
                     <td>
                       <a href="{{ route('admin.products.edit', ['id' => $product->id]) }}"><button class="btn btn-primary">Editar</button></a>
+                      <a href="{{ route('admin.expirations.create', ['upc' => $product->upc]) }}"><button class="btn btn-warning">Crear vencimiento</button></a>
                     </td>
                   </tr>
                 @endforeach

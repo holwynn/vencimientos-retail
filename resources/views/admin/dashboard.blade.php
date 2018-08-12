@@ -89,12 +89,13 @@
                       <th width="10%">Imagen</th>
                       <th>Nombre</th>
                       <th>Vencimiento</th>
+                      <th>Cantidad</th>
                       <th>Estado</th>
                     </tr>
                   </thead>
                   <tbody>
                     @foreach ($expirations as $expiration)
-                      <tr>
+                      <tr @if($expiration->isExpired()) class="table-danger" @endif>
                         <td class="text-center">
                           @if ($expiration->product->img)
                             <img height="50px" src="{{ $expiration->product->img }}" alt="">
@@ -104,10 +105,17 @@
                         </td>
                         <td>{{ $expiration->product->name }} </td>
                         <td>
-                          {{ $expiration->expirationLocalized }} 
+                          {{ $expiration->expirationLocalized() }} 
                           (<strong>{{ $expiration->diffLocalized }}</strong>)
                         </td>
-                        <td><span class="badge bgc-green-50 c-green-700 p-10 lh-0 tt-c badge-pill">Por vencer</span></td>
+                        <td><span class="badge bgc-purple-50 c-black-700 p-10 lh-0 tt-c badge-pill">{{ $expiration->qty }}</span></td>
+                        <td>
+                          @if ($expiration->isExpired())
+                            <span class="badge bgc-red-50 c-black-700 p-10 lh-0 tt-c badge-pill">Vencido</span>
+                          @else
+                            <span class="badge bgc-green-50 c-green-700 p-10 lh-0 tt-c badge-pill">Por vencer</span>
+                          @endif
+                        </td>
                       </tr>  
                     @endforeach
                   </tbody>
@@ -116,7 +124,7 @@
             </div>
           </div>
           <div class="ta-c bdT w-100 p-20">
-            <a href="#">Check all the sales</a>
+            <a href="{{ route('admin.expirations') }}">Ver todos los vencimientos</a>
           </div>
         </div>
       </div>

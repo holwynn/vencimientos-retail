@@ -40,12 +40,12 @@ class StoreExpirationRequest extends FormRequest
     public function messages()
     {
         return [
-            'qty.required' => 'You must specify a quantity.',
-            'expiration.required'  => 'You must specify an expiration date.',
-            'expiration.date' => 'The expiration should be a datetime format.',
-            'upc.min' => 'UPC code must be exactly 13 characters',
-            'upc.max' => 'UPC code must be exactly 13 characters',
-            'upc.exists' => 'UPC code must exist in database.',
+            'qty.required' => 'La cantidad es requerida.',
+            'expiration.required'  => 'La fecha de vencimiento es requerida.',
+            'expiration.date' => 'La fecha de vencimiento es incorrecta.',
+            'upc.min' => 'El codigo debe contener 13 caracteres.',
+            'upc.max' => 'El codigo debe contener 13 caracteres.',
+            'upc.exists' => 'Ese producto no existe.',
         ];
     }
 }

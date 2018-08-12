@@ -35,26 +35,34 @@ class Expiration extends Model
         return $this->expiration->format('m-d-Y');
     }
 
-    public function getExpirationLocalizedAttribute()
-    {
-        setlocale(LC_TIME, 'es_AR.utf8');
-        Carbon::setLocale('es');
-        Carbon::setUtf8(true);
-        return ucfirst($this->expiration->formatLocalized('%A, %d de %B'));
-    }
-
     public function getDiffLocalizedAttribute()
     {
         setlocale(LC_TIME, 'es_AR.utf8');
         Carbon::setLocale('es');
-        Carbon::setUtf8(true);
         return ucfirst($this->expiration->diffForHumans());
+    }
+
+    public function expirationLocalized($year = false)
+    {
+        // apparently you don't need to set carbon::utf8 if your
+        // locale is already utf8
+        setlocale(LC_TIME, 'es_AR.utf8');
+        Carbon::setLocale('es');
+        
+        if (!$year) {
+            return ucfirst($this->expiration->formatLocalized('%A, %d de %B'));
+        }
+
+        return ucfirst($this->expiration->formatLocalized('%A, %d de %B de %Y'));
     }
 
     public function isExpired()
     {
-        if ($this->date) {
-            # code...
+        $today = Carbon::now();
+        $days = $today->diffInDays($this->expiration, false);
+
+        if ($days <= 0) {
+            return true;
         }
     }
 }

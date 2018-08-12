@@ -69,10 +69,10 @@
         </a>
         <ul class="dropdown-menu">
           <li>
-            <a class='sidebar-link' href="basic-table.html">Lista</a>
+            <a class='sidebar-link' href="{{ route('admin.expirations') }}">Lista</a>
           </li>
           <li>
-            <a class='sidebar-link' href="datatable.html">Agregar</a>
+            <a class='sidebar-link' href="{{ route('admin.expirations.create') }}">Agregar</a>
           </li>
         </ul>
       </li>
