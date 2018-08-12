@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App;
 use App\Product;
 use App\Expiration;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
@@ -26,12 +28,23 @@ class DashboardController extends Controller
      */
     public function index()
     {
+        setlocale(LC_TIME, 'es_AR');
+
+        $today = Carbon::now();
+        
         $productsCount = Product::count();
         $expirationsCount = Expiration::count();
+        $expirations = Expiration::with('product')
+            ->where('expiration', '>', $today->startOfMonth()->format('Y-m-d'))
+            ->where('expiration', '<', $today->endOfMonth()->format('Y-m-d'))
+            ->orderBy('expiration', 'DESC')
+            ->get();
 
         return view('admin.dashboard', [
-            'products' => $productsCount,
-            'expirations' => $expirationsCount,
+            'today' => Carbon::now(),
+            'productsCount' => $productsCount,
+            'expirationsCount' => $expirationsCount,
+            'expirations' => $expirations,
         ]);
     }
 }

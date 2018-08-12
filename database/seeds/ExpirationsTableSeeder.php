@@ -27,13 +27,15 @@ class ExpirationsTableSeeder extends Seeder
             $expirationDates[] = Carbon::now()->addDay(rand(3,7))->addMonth(rand(1, 6));
         }
 
-        $product = Product::first();
+        $productsCount = Product::count();
 
         foreach ($expirationDates as $expiration) {
-            $product->expirations()->create([
-                'expiration' => $expiration,
-                'qty' => rand(10, 120),
-            ]);
+            Product::find(rand(1, $productsCount))
+                ->expirations()
+                ->create([
+                    'expiration' => $expiration,
+                    'qty' => rand(10, 120),
+                ]);
         }
     }
 }
