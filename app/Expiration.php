@@ -14,8 +14,20 @@ class Expiration extends Model
         'checked',
     ];
 
+    protected $dates = [
+        'expiration',
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
+
     public function product() {
         return $this->belongsTo(Product::class);
+    }
+
+    public function getDateFormatedAttribute()
+    {
+        return $this->expiration->format('m-d-Y');
     }
 
     public function store() {
