@@ -37,7 +37,7 @@ class Expiration extends Model
 
     public function getExpirationLocalizedAttribute()
     {
-        setlocale(LC_TIME, 'es_AR');
+        setlocale(LC_TIME, 'es_AR.utf8');
         Carbon::setLocale('es');
         Carbon::setUtf8(true);
         return ucfirst($this->expiration->formatLocalized('%A, %d de %B'));
@@ -45,7 +45,7 @@ class Expiration extends Model
 
     public function getDiffLocalizedAttribute()
     {
-        setlocale(LC_TIME, 'es_AR');
+        setlocale(LC_TIME, 'es_AR.utf8');
         Carbon::setLocale('es');
         Carbon::setUtf8(true);
         return ucfirst($this->expiration->diffForHumans());

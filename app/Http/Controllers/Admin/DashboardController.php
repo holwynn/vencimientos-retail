@@ -28,7 +28,7 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        setlocale(LC_TIME, 'es_AR');
+        setlocale(LC_TIME, 'es_AR.utf8');
 
         $today = Carbon::now();
         
