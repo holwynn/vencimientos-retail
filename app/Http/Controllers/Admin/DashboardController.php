@@ -37,8 +37,8 @@ class DashboardController extends Controller
         $productsCount = Product::count();
         $expirationsCount = Expiration::count();
         $expirations = Expiration::with('product')
-            ->where('expiration', '>', $today->startOfMonth()->format('Y-m-d'))
-            ->where('expiration', '<', $today->endOfMonth()->format('Y-m-d'))
+            ->where('expiration', '>=', $today->startOfMonth()->format('Y-m-d'))
+            ->where('expiration', '<=', $today->endOfMonth()->format('Y-m-d'))
             ->orderBy('expiration', 'DESC')
             ->get();
 

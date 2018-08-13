@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use App\Queries\Admin\ListProducts;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -25,10 +26,10 @@ class ProductsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::orderBy('id', 'DESC')
-            ->paginate(8);
+        $query = new ListProducts();
+        $products = $query->search($request);
 
         return view('admin.products.index', [
             'products' => $products

@@ -6,6 +6,7 @@ use App\Product;
 use App\Expiration;
 use App\Http\Requests\StoreExpirationRequest;
 use App\Http\Requests\UpdateExpirationRequest;
+use App\Queries\Admin\ListExpirations;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -29,9 +30,8 @@ class ExpirationsController extends Controller
      */
     public function index(Request $request)
     {
-        $expirations = Expiration::with('product')
-            ->orderBy('id', 'DESC')
-            ->paginate(10);
+        $query = new ListExpirations();
+        $expirations = $query->search($request);
 
         return view('admin.expirations.index', [
             'expirations' => $expirations,
