@@ -28,7 +28,7 @@ class ListExpirations
             $paginate = $request->input('paginate');
         }
 
-        $query->orderBy('id', 'DESC');
+        $query->orderBy('expiration', 'DESC');
 
         $pages = $query->paginate($paginate);
         return $pages->appends($request->all());
