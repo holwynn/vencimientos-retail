@@ -36,7 +36,7 @@
             </a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="#"
-            onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+              onclick="event.preventDefault();document.getElementById('logout-form').submit();">
               <i class="dropdown-icon fe fe-log-out"></i> Salir
             </a>
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

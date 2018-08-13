@@ -64,6 +64,8 @@
           <div class="card-header bg-indigo">
             <h3 style="color: #fafafa;" class="card-title">Vencimientos de {{ ucfirst($today->formatLocalized('%B')) }}</h3>
           </div>
+          @include('admin.components.errors')
+          @include('admin.components.flash')
           <div class="table-responsive">
             <table class="table card-table table-vcenter text-nowrap">
               <thead>
@@ -78,7 +80,7 @@
               <tbody>
                 @foreach ($expirations as $expiration)
                 <tr>
-                  <td><a href="invoice.html" class="text-inherit">{{ $expiration->product->name }}</a></td>
+                  <td><a href="{{ route('admin.expirations.edit', ['id' => $expiration->id]) }}" class="text-inherit">{{ $expiration->product->name }}</a></td>
                   <td>
                     {{ $expiration->expirationLocalized() }} 
                     (<strong>{{ $expiration->diffLocalized }}</strong>)
@@ -87,15 +89,33 @@
                     {{ $expiration->qty }}
                   </td>
                   <td>
-                    @if ($expiration->isExpired())
+                    @if ($expiration->checked)
+                    <span class="status-icon bg-success"></span> Revisado
+                    @elseif ($expiration->isExpired())
                     <span class="status-icon bg-danger"></span> Vencido
                     @else
                     <span class="status-icon bg-warning"></span> Por vencer
                     @endif
                   </td>
                   <td class="text-right">
-                    <a href="{{ route('admin.products.edit', ['id' => $expiration->id]) }}" class="btn btn-primary btn-sm">Revisar</a>
-                    <a href="{{ route('admin.expirations.create', ['upc' => $expiration->id]) }}" class="btn btn-danger btn-sm">Eliminar</a>
+                    @if (!$expiration->checked)
+                    <a href="#" class="btn btn-primary btn-sm"
+                       onclick="event.preventDefault();document.getElementById('checkExpiration-{{ $expiration->id}}').submit();">
+                     Revisar
+                    </a>
+                    <form id="checkExpiration-{{ $expiration->id}}" action="{{ route('admin.expirations.check', ['id' => $expiration->id]) }}" method="POST" style="display: none;">
+                      @csrf
+                      @method('PUT')
+                    </form>
+                    @endif
+                    <a href="#" class="btn btn-danger btn-sm"
+                       onclick="event.preventDefault();document.getElementById('deleteExpiration-{{ $expiration->id}}').submit();">
+                     Eliminar
+                    </a>
+                    <form id="deleteExpiration-{{ $expiration->id}}" action="{{ route('admin.expirations.destroy', ['id' => $expiration->id]) }}" method="POST" style="display: none;">
+                      @csrf
+                      @method('DELETE')
+                    </form>
                   </td>
                 </tr>
                 @endforeach

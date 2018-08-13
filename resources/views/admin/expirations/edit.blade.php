@@ -26,9 +26,30 @@
                 <input type="date" name="expiration" value="{{ $expiration->expiration->format('Y-m-d') }}" class="form-control" >
               </div>
 
+              <div class="form-group">
+                <label class="form-label">Estado</label>
+                <input type="text" value="{{ $expiration->checked ? 'Revisado' : 'Por vencer' }}" class="form-control" disabled>
+              </div>
+
               <button type="submit" class="btn btn-primary">Actualizar</button>
-              <button type="submit" class="btn btn-success">Revisar</button>
-              <button type="submit" class="btn btn-danger">Eliminar</button>
+              <a href="#" class="btn btn-success"
+                 onclick="event.preventDefault();document.getElementById('checkExpiration').submit();">
+                 Revisar
+               </a>
+              <a href="#" class="btn btn-danger"
+                 onclick="event.preventDefault();document.getElementById('deleteExpiration').submit();">
+                 Eliminar
+               </a>
+            </form>
+
+            <form id="checkExpiration" action="{{ route('admin.expirations.check', ['id' => $expiration->id]) }}" method="POST" style="display: none;">
+              @csrf
+              @method('PUT')
+            </form>
+
+            <form id="deleteExpiration" action="{{ route('admin.expirations.destroy', ['id' => $expiration->id]) }}" method="POST" style="display: none;">
+              @csrf
+              @method('DELETE')
             </form>
           </div>
         </div>

@@ -22,8 +22,10 @@ Route::put('/products/{id}', 'ProductsController@update')->name('admin.products.
 Route::get('/expirations', 'ExpirationsController@index')->name('admin.expirations');
 Route::get('/expirations/new/{upc?}', 'ExpirationsController@create')->name('admin.expirations.create');
 Route::post('/expirations', 'ExpirationsController@store')->name('admin.expirations.store');
+Route::put('/expirations/{id}/check', 'ExpirationsController@check')->name('admin.expirations.check');
 Route::get('/expirations/{id}', 'ExpirationsController@edit')->name('admin.expirations.edit');
 Route::put('/expirations/{id}', 'ExpirationsController@update')->name('admin.expirations.update');
+Route::delete('/expirations/{id}', 'ExpirationsController@destroy')->name('admin.expirations.destroy');
 
 Route::get('/users/{id}', 'UsersController@edit')->name('admin.users.edit');
 Route::put('/users/{id}', 'UsersController@update')->name('admin.users.update');

@@ -49,7 +49,14 @@
                         <a href="{{ route('admin.expirations.edit', ['id' => $expiration->id]) }}" class="btn btn-primary btn-sm">Editar</a>
                       </td>
                       <td>
-                        <a href="{{ route('admin.expirations.create', ['upc' => $expiration->id]) }}" class="btn btn-danger btn-sm">Eliminar</a>
+                        <a href="#" class="btn btn-danger btn-sm"
+                           onclick="event.preventDefault();document.getElementById('deleteExpiration-{{ $expiration->id}}').submit();">
+                         Eliminar
+                        </a>
+                        <form id="deleteExpiration-{{ $expiration->id}}" action="{{ route('admin.expirations.destroy', ['id' => $expiration->id]) }}" method="POST" style="display: none;">
+                          @csrf
+                          @method('DELETE')
+                        </form>
                       </td>
                     </tr>
                   @endforeach

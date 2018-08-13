@@ -72,4 +72,23 @@ class ExpirationsController extends Controller
         $request->session()->flash('message-s', 'El vencimiento ha sido actualizado.');
         return redirect()->back();
     }
+
+    public function check(Request $request, $id)
+    {
+        $expiration = Expiration::findOrFail($id);
+        $expiration->checked = true;
+        $expiration->save();
+
+        $request->session()->flash('message-s', 'El vencimiento ha sido revisado.');
+        return redirect()->back();
+    }
+
+    public function destroy(Request $request, $id)
+    {
+        $expiration = Expiration::findOrFail($id);
+        $expiration->delete();
+
+        $request->session()->flash('message-s', 'El vencimiento ha sido eliminado.');
+        return redirect()->route('admin.dashboard');
+    }
 }
