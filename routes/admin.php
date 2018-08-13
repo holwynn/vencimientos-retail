@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'DashboardController@index')->name('admin.dashboard');
+Route::get('/dashboard', 'DashboardController@index')->name('admin.dashboard');
 Route::get('/products', 'ProductsController@index')->name('admin.products');
 Route::post('/products', 'ProductsController@store')->name('admin.products.store');
 Route::post('/products/walmart', 'ProductsController@walmart')->name('admin.products.store.walmart');

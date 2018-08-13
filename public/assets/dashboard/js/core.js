@@ -16,6 +16,20 @@ let hexToRgba = function(hex, opacity) {
  *
  */
 $(document).ready(function() {
+  /** Active navbar */
+  /** TODO: yes it fucking sucks but it works */
+  const navbarLinks = $('.nav-tabs').find('.nav-link');
+
+  navbarLinks
+    .each((index, el) => {
+      $(el).removeClass('active');
+    })
+    .filter(function () {
+      const href = $(this).attr('data-location');
+      return window.location.pathname.includes(href);
+    })
+    .addClass('active');
+
   /** Constant div card */
   const DIV_CARD = 'div.card';
 
