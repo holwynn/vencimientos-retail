@@ -26,8 +26,9 @@ class UpdateExpirationRequest extends FormRequest
     public function rules()
     {
         return [
-            'qty' => 'required|integer',
-            'expiration' => 'required|date'
+            'qty' => 'nullable|integer',
+            'expiration' => 'nullable|date',
+            'checked' => 'nullable|boolean',
         ];
     }
 

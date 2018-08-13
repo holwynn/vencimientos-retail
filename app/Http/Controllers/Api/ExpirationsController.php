@@ -46,7 +46,7 @@ class ExpirationsController extends Controller
     public function store(StoreExpirationRequest $request)
     {
         $product = Product::where('upc', $request->input('upc'))->first();
-        $expiration = $product->expirations()->create($request->all());
+        $expiration = $product->expirations()->create($request->validated());
 
         return $expiration->load('product');
     }
@@ -84,7 +84,7 @@ class ExpirationsController extends Controller
             $this->throwUnknownExpiration();
         }
 
-        $expiration->update($request->all());
+        $expiration->update($request->validated());
         $expiration->save();
 
         return $expiration->load('product');

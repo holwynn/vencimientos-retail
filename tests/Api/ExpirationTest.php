@@ -152,7 +152,7 @@ class ExpirationTest extends TestCase
         $res = $this->withHeaders([
             'Authorization' => 'Bearer '.$token,
         ])->json('PUT', '/api/expirations/'.$expiration->id, [
-            'qty' => 12,
+            'expiration' => 'this is not a date',
         ]);
 
         $res->assertStatus(422);

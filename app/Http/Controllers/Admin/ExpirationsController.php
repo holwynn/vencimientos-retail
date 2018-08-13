@@ -57,7 +57,7 @@ class ExpirationsController extends Controller
     public function store(StoreExpirationRequest $request)
     {
         $product = Product::where('upc', $request->input('upc'))->first();
-        $expiration = $product->expirations()->create($request->all());
+        $expiration = $product->expirations()->create($request->validated());
 
         $request->session()->flash('message-s', 'El vencimiento ha sido creado.');
         return redirect()->route('admin.expirations');
