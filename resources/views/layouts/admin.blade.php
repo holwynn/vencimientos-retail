@@ -1,113 +1,52 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en" dir="ltr">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Dashboard</title>
-  
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css" integrity="sha256-8g4waLJVanZaKB04tvyhKu2CZges6pA5SUelZAux/1U=" crossorigin="anonymous">
-    <link rel="stylesheet" href="{{ asset('assets/admin/style.css') }}">
-
-    <style>
-      #loader {
-        transition: all 0.3s ease-in-out;
-        opacity: 1;
-        visibility: visible;
-        position: fixed;
-        height: 100vh;
-        width: 100%;
-        background: #fff;
-        z-index: 90000;
-      }
-
-      #loader.fadeOut {
-        opacity: 0;
-        visibility: hidden;
-      }
-
-      .spinner {
-        width: 40px;
-        height: 40px;
-        position: absolute;
-        top: calc(50% - 20px);
-        left: calc(50% - 20px);
-        background-color: #333;
-        border-radius: 100%;
-        -webkit-animation: sk-scaleout 1.0s infinite ease-in-out;
-        animation: sk-scaleout 1.0s infinite ease-in-out;
-      }
-
-      @-webkit-keyframes sk-scaleout {
-        0% { -webkit-transform: scale(0) }
-        100% {
-          -webkit-transform: scale(1.0);
-          opacity: 0;
-        }
-      }
-
-      @keyframes sk-scaleout {
-        0% {
-          -webkit-transform: scale(0);
-          transform: scale(0);
-        } 100% {
-          -webkit-transform: scale(1.0);
-          transform: scale(1.0);
-          opacity: 0;
-        }
-      }
-    </style>
-  </head>
-  <body class="app">
-    <!-- @TOC -->
-    <!-- =================================================== -->
-    <!--
-      + @Page Loader
-      + @App Content
-          - #Left Sidebar
-              > $Sidebar Header
-              > $Sidebar Menu
-
-          - #Main
-              > $Topbar
-              > $App Screen Content
-    -->
-
-    <!-- @Page Loader -->
-    <!-- =================================================== -->
-    <div id='loader'>
-      <div class="spinner"></div>
-    </div>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="Content-Language" content="en" />
+    <meta name="msapplication-TileColor" content="#2d89ef">
+    <meta name="theme-color" content="#4188c9">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <link rel="icon" href="./favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico" />
+    <!-- Generated: 2018-04-16 09:29:05 +0200 -->
+    <title>Dashboard - VenciPro</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext">
+    <script src="{{ asset('assets/dashboard/js/require.min.js') }}"></script>
     <script>
-      window.addEventListener('load', () => {
-        const loader = document.getElementById('loader');
-        setTimeout(() => {
-          loader.classList.add('fadeOut');
-        }, 300);
+      requirejs.config({
+          baseUrl: '{{ asset("/assets/dashboard") }}'
       });
     </script>
-
-    <!-- @App Content -->
-    <!-- =================================================== -->
-    <div>
-      <!-- #Left Sidebar ==================== -->
-      @include('admin.components.sidebar')
-
-      <!-- #Main ============================ -->
-      <div class="page-container">
-        <!-- ### $Topbar ### -->
+    <!-- Dashboard Core -->
+    <link href="{{ asset('assets/dashboard/css/dashboard.css') }}" rel="stylesheet" />
+    <script src="{{ asset('assets/dashboard/js/dashboard.js') }}"></script>
+    <!-- c3.js Charts Plugin -->
+    <link href="{{ asset('assets/dashboard/plugins/charts-c3/plugin.css') }}" rel="stylesheet" />
+    <script src="{{ asset('assets/dashboard/plugins/charts-c3/plugin.js') }}"></script>
+    <!-- Google Maps Plugin -->
+    {{-- <link href="./assets/plugins/maps-google/plugin.css" rel="stylesheet" />
+    <script src="./assets/plugins/maps-google/plugin.js"></script> --}}
+    <!-- Input Mask Plugin -->
+    <script src="{{ asset('assets/dashboard/plugins/input-mask/plugin.js') }}"></script>
+  </head>
+  <body class="">
+    <div class="page">
+      <div class="page-main">
+        {{-- Topbar --}}
         @include('admin.components.topbar')
-
-        <!-- ### $App Screen Content ### -->
+        {{-- Navbar --}}
+        @include('admin.components.navbar')
+        {{-- Content --}}
         @yield('content')
-
-        <!-- ### $App Screen Footer ### -->
-        @include('admin.components.footer')
       </div>
+      @include('admin.components.footer')
     </div>
-
-    <script src="{{ asset('assets/admin/vendor.js') }}"></script>
-    <script src="{{ asset('assets/admin/bundle.js') }}"></script>
   </body>
 </html>

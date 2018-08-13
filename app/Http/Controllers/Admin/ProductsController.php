@@ -73,7 +73,7 @@ class ProductsController extends Controller
 
             if (!$product) {
                 $request->session()->flash('message-d', 'No se ha encontrado el producto. Ingreselo manualmente.');
-                return view('admin.products.create');
+                return redirect()->back();
             }
         }
 

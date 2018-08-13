@@ -59,6 +59,7 @@ class ExpirationsController extends Controller
         $product = Product::where('upc', $request->input('upc'))->first();
         $expiration = $product->expirations()->create($request->all());
 
+        $request->session()->flash('message-s', 'El vencimiento ha sido creado.');
         return redirect()->route('admin.expirations');
     }
 
@@ -68,6 +69,7 @@ class ExpirationsController extends Controller
         $expiration->update($request->all());
         $expiration->save();
 
-        return redirect()->route('admin.expirations');
+        $request->session()->flash('message-s', 'El vencimiento ha sido actualizado.');
+        return redirect()->back();
     }
 }

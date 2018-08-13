@@ -1,61 +1,59 @@
 @extends('layouts.admin')
 
 @section('content')
-<main class='main-content bgc-grey-100'>
-  <div id='mainContent'>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="bgc-white bd bdrs-3 p-20 mB-20">
-            <h4 class="c-grey-900 mB-20">Listado de productos</h4>
-
-            <div class="float-left">
-              {{ $products->links() }}
+<div class="my-3 my-md-5">
+  <div class="container">
+    <div class="row row-cards">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header bg-indigo">
+            <h3 style="color: #fafafa;" class="card-title">Lista de productos</h3>
+          </div>
+          <div class="card-header" style="padding-top: 20px;">
+            {{ $products->links() }}
+          </div>
+          <div class="card-body">
+            @include('admin.components.errors')
+            @include('admin.components.flash')
+            
+            <div class="table-responsive">
+              <table class="table card-table table-vcenter">
+                <thead>
+                  <th>Imagen</th>
+                  <th>Nombre</th>
+                  <th>UPC</th>
+                  <th></th>
+                  <th></th>
+                </thead>
+                <tbody>
+                  @foreach ($products as $product)
+                    <tr>
+                      <td>
+                        @if ($product->img)
+                          <img src="{{ $product->img }}" alt="" class="h-8">
+                        @else
+                          <i class="fa fa-shopping-cart fa-3x" aria-hidden="true"></i>
+                        @endif
+                      </td>
+                      <td>
+                        <a href="{{ route('admin.products.edit', ['id' => $product->id]) }}">{{ $product->name }}</a>
+                      </td>
+                      <td>{{ $product->upc }}</td>
+                      <td>
+                        <a href="{{ route('admin.products.edit', ['id' => $product->id]) }}" class="btn btn-primary btn-sm">Editar</a>
+                      </td>
+                      <td>
+                        <a href="{{ route('admin.expirations.create', ['upc' => $product->upc]) }}" class="btn btn-indigo btn-sm">Vencimiento</a>
+                      </td>
+                    </tr>
+                  @endforeach
+                </tbody>
+              </table>
             </div>
-
-            <div class="float-right">
-              <a href="{{ route('admin.products.create') }}"><button class="btn btn-success">Agregar</button></a>
-            </div>
-
-            <div class="clearfix"></div>
-
-            <table class="table table-bordered table-hover" style="margin-top: 15px;">
-              <thead class="thead">
-                <tr>
-                  <th width="10%" scope="col">Imagen</th>
-                  <th scope="col">Nombre</th>
-                  <th scope="col">UPC</th>
-                  <th width="24%">Opciones</th>
-                </tr>
-              </thead>
-              <tbody>
-                @foreach ($products as $product)
-                  <tr>
-                    <td class="text-center">
-                      @if ($product->img)
-                        <img height="50px" src="{{ $product->img }}" alt="">
-                      @else
-                        <i class="fa fa-shopping-cart fa-3x" aria-hidden="true"></i>
-                      @endif
-                    </td>
-                    <td>
-                      <a href="{{ route('admin.products.edit', ['id' => $product->id]) }}">
-                        {{ $product->name }}
-                      </a>
-                    </td>
-                    <td>{{ $product->upc }}</td>
-                    <td>
-                      <a href="{{ route('admin.products.edit', ['id' => $product->id]) }}"><button class="btn btn-primary">Editar</button></a>
-                      <a href="{{ route('admin.expirations.create', ['upc' => $product->upc]) }}"><button class="btn btn-warning">Crear vencimiento</button></a>
-                    </td>
-                  </tr>
-                @endforeach
-              </tbody>
-            </table>
           </div>
         </div>
       </div>
     </div>
   </div>
-</main>
+</div>
 @endsection

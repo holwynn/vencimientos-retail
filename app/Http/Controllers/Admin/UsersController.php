@@ -44,6 +44,7 @@ class UsersController extends Controller
         $user->update($request->validated());
         $user->save();
 
+        $request->session()->flash('message-s', 'Tu perfil ha sido actualizado.');
         return redirect()->back();
     }
 }

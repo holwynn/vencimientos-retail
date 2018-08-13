@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App;
+
+use App\User;
 use App\Product;
 use App\Expiration;
 use App\Http\Controllers\Controller;
@@ -32,6 +33,7 @@ class DashboardController extends Controller
 
         $today = Carbon::now();
         
+        $usersCount = User::count();
         $productsCount = Product::count();
         $expirationsCount = Expiration::count();
         $expirations = Expiration::with('product')
@@ -42,6 +44,7 @@ class DashboardController extends Controller
 
         return view('admin.dashboard', [
             'today' => Carbon::now(),
+            'usersCount' => $usersCount,
             'productsCount' => $productsCount,
             'expirationsCount' => $expirationsCount,
             'expirations' => $expirations,

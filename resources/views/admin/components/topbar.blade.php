@@ -1,90 +1,53 @@
-<div class="header navbar">
-  <div class="header-container">
-    <ul class="nav-left">
-      <li>
-        <a id='sidebar-toggle' class="sidebar-toggle" href="javascript:void(0);">
-          <i class="ti-menu"></i>
-        </a>
-      </li>
-      <li class="search-box">
-        <a class="search-toggle no-pdd-right" href="javascript:void(0);">
-          <i class="search-icon ti-search pdd-right-10"></i>
-          <i class="search-icon-close ti-close pdd-right-10"></i>
-        </a>
-      </li>
-      <li class="search-input">
-        <input class="form-control" type="text" placeholder="Search...">
-      </li>
-    </ul>
-    <ul class="nav-right">
-      <li class="notifications dropdown">
-        <span class="counter bgc-red">1</span>
-        <a href="" class="dropdown-toggle no-after" data-toggle="dropdown">
-          <i class="ti-bell"></i>
-        </a>
-
-        <ul class="dropdown-menu">
-          <li class="pX-20 pY-15 bdB">
-            <i class="ti-bell pR-10"></i>
-            <span class="fsz-sm fw-600 c-grey-900">Notificaciones</span>
-          </li>
-          <li>
-            <ul class="ovY-a pos-r scrollable lis-n p-0 m-0 fsz-sm">
-              <li>
-                <a href="" class='peers fxw-nw td-n p-20 bdB c-grey-800 cH-blue bgcH-grey-100'>
-                  <div class="peer mR-15">
-                    <i class="fa fa-shopping-cart fa-3x" aria-hidden="true"></i>
-                  </div>
-                  <div class="peer peer-greed">
-                    <span>
-                      <span class="fw-500">Mermelada "La Patriota" x130gr</span>
-                      <span class="c-grey-600">vence el <span class="text-dark">3 de enero</span>
-                      </span>
-                    </span>
-                    <p class="m-0">
-                      <small class="fsz-xs">10 mins ago</small>
-                    </p>
-                  </div>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="pX-20 pY-15 ta-c bdT">
-            <span>
-              <a href="" class="c-grey-600 cH-blue fsz-sm td-n">View All Notifications <i class="ti-angle-right fsz-xs mL-10"></i></a>
-            </span>
-          </li>
-        </ul>
-      </li>
-      <li class="dropdown">
-        <a href="" class="dropdown-toggle no-after peers fxw-nw ai-c lh-1" data-toggle="dropdown">
-          <div class="peer mR-10">
-            <img class="w-2r bdrs-50p" src="{{ asset('assets/admin/static/images/user.png') }}" alt="">
-          </div>
-          <div class="peer">
-            <span class="fsz-sm c-grey-900">{{ auth()->user()->name }}</span>
-          </div>
-        </a>
-        <ul class="dropdown-menu fsz-sm">
-          <li>
-            <a href="{{ route('admin.users.edit', ['id' => auth()->user()->id]) }}" class="d-b td-n pY-5 bgcH-grey-100 c-grey-700">
-              <i class="ti-user mR-10"></i>
-              <span>Mi perfil</span>
+<div class="header py-4">
+  <div class="container">
+    <div class="d-flex">
+      <a class="header-brand" href="{{ route('admin.dashboard') }}">
+        <img src="{{ asset('assets/dashboard/demo/brand/tabler.svg') }}" class="header-brand-img" alt="tabler logo">
+      </a>
+      <div class="d-flex order-lg-2 ml-auto">
+        <div class="dropdown d-none d-md-flex">
+          <a class="nav-link icon" data-toggle="dropdown">
+            <i class="fe fe-bell"></i>
+            <span class="nav-unread"></span>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+            <a href="#" class="dropdown-item d-flex">
+              <span class="avatar mr-3 align-self-center" style="background-image: url(demo/faces/male/41.jpg)"></span>
+              <div>
+                <strong>Mermelada "La Patriota"</strong> vence dentro de 2 dias.
+                <div class="small text-muted">hace 10 minutos</div>
+              </div>
             </a>
-          </li>
-          <li role="separator" class="divider"></li>
-          <li>
-            <a href="{{ route('logout') }}" class="d-b td-n pY-5 bgcH-grey-100 c-grey-700"
-               onclick="event.preventDefault();document.getElementById('logout-form').submit();">
-              <i class="ti-power-off mR-10"></i>
-              <span>Salir</span>
+            <div class="dropdown-divider"></div>
+            <a href="#" class="dropdown-item text-center text-muted-dark">Mark all as read</a>
+          </div>
+        </div>
+        <div class="dropdown">
+          <a href="#" class="nav-link pr-0 leading-none" data-toggle="dropdown">
+            <span class="avatar" style="background-image: url(./demo/faces/female/25.jpg)"></span>
+            <span class="ml-2 d-none d-lg-block">
+              <span class="text-default">{{ auth()->user()->name }}</span>
+              <small class="text-muted d-block mt-1">Encargado</small>
+            </span>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+            <a class="dropdown-item" href="#">
+              <i class="dropdown-icon fe fe-user"></i> Perfil
+            </a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#"
+            onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+              <i class="dropdown-icon fe fe-log-out"></i> Salir
             </a>
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
               @csrf
             </form>
-          </li>
-        </ul>
-      </li>
-    </ul>
+          </div>
+        </div>
+      </div>
+      <a href="#" class="header-toggler d-lg-none ml-3 ml-lg-0" data-toggle="collapse" data-target="#headerMenuCollapse">
+        <span class="header-toggler-icon"></span>
+      </a>
+    </div>
   </div>
 </div>

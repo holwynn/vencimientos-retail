@@ -1,50 +1,60 @@
 @extends('layouts.admin')
 
 @section('content')
-<main class='main-content bgc-grey-100'>
-  <div id='mainContent'>
-    <div class="row gap-20 masonry pos-r">
-      <div class="masonry-sizer col-md-4"></div>
-      <div class="masonry-item col-md-8">
-        <div class="bgc-white p-20 bd">
-          {{-- Errors --}}
-          @include('admin.components.errors')
-          @include('admin.components.flash')
+<div class="my-3 my-md-5">
+  <div class="container">
+    <div class="row row-cards">
+      <div class="col-lg-9">
+        <div class="card">
+          <div class="card-header bg-indigo">
+            <h3 style="color: #fafafa;" class="card-title">Editar producto</h3>
+          </div>
+          <div class="card-body">
+            @include('admin.components.errors')
+            @include('admin.components.flash')
 
-          <h6 class="c-grey-900">Editar producto</h6>
-          <div class="mT-30">
             <form method="POST" action="{{ route('admin.products.update', ['id' => $product->id]) }}">
               @csrf
               @method('PUT')
 
               <div class="form-group">
-                <label for="">Nombre</label>
+                <label class="form-label">Nombre</label>
                 <input type="text" name="name" value="{{ $product->name }}" class="form-control" placeholder="{{ $product->name }}">
               </div>
+
               <div class="form-group">
-                <label for="">UPC</label>
-                <input type="text" name="upc" value="{{ $product->upc }}" class="form-control" placeholder="{{ $product->upc }}" readonly>
-                <small>No es posible modificar el UPC del producto.</small>
+                <label class="form-label">UPC</label>
+                <input type="text" name="upc" value="{{ $product->upc }}" class="form-control" readonly>
+                <small>No es posible modificar el codigo UPC del producto.</small>
               </div>
+
               <div class="form-group">
-                <label for="">Imagen <small>(opcional)</small></label>
-                <input type="text" name="img" value="{{ $product->img }}" class="form-control" placeholder="{{ $product->img }}">
+                <label class="form-label">Imagen <span class="text-muted">(opcional)</span></label>
+                <input type="text" name="img" value="{{ $product->img }}" class="form-control" placeholder="">
               </div>
+
               <button type="submit" class="btn btn-primary">Actualizar</button>
+
             </form>
           </div>
         </div>
       </div>
-
-      <div class="masonry-item col-md-4">
-        <div class="bgc-white p-20 bd">
-          <h6 class="c-grey-900">Preview</h6>
-          <div class="mT-30">
-            <img class="img-fluid" src="{{ $product->img }}" alt="">
+      <div class="col-lg-3">
+        <div class="card">
+          <div class="card-body">
+            <div class="mb-4 text-center">
+              <h3>Preview</h3>
+              @if ($product->img)
+                <img src="{{ $product->img }}" class="img-fluid">
+              @else
+                <i class="fa fa-shopping-cart fa-5x" aria-hidden="true"></i>
+                <p>Sin imagen</p>
+              @endif
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</main>
+</div>
 @endsection
