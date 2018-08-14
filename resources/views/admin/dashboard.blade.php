@@ -100,24 +100,26 @@
                       @endif
                     </td>
                     <td class="text-right">
-                      @if (!$expiration->checked)
-                      <a href="#" class="btn btn-success btn-sm"
-                         onclick="event.preventDefault();document.getElementById('checkExpiration-{{ $expiration->id}}').submit();">
-                       <span class="fe fe-check"></span> Revisar
-                      </a>
-                      <form id="checkExpiration-{{ $expiration->id}}" action="{{ route('admin.expirations.check', ['id' => $expiration->id]) }}" method="POST" style="display: none;">
-                        @csrf
-                        @method('PUT')
-                      </form>
-                      @endif
-                      <a href="#" class="btn btn-danger btn-sm"
-                         onclick="event.preventDefault();document.getElementById('deleteExpiration-{{ $expiration->id}}').submit();">
-                       <span class="fe fe-trash-2"></span> Eliminar
-                      </a>
-                      <form id="deleteExpiration-{{ $expiration->id}}" action="{{ route('admin.expirations.destroy', ['id' => $expiration->id]) }}" method="POST" style="display: none;">
-                        @csrf
-                        @method('DELETE')
-                      </form>
+                      <div class="btn-list">
+                        @if (!$expiration->checked)
+                        <a href="#" class="btn btn-success btn-sm"
+                           onclick="event.preventDefault();document.getElementById('checkExpiration-{{ $expiration->id}}').submit();">
+                         <span class="fe fe-check"></span> Revisar
+                        </a>
+                        <form id="checkExpiration-{{ $expiration->id}}" action="{{ route('admin.expirations.check', ['id' => $expiration->id]) }}" method="POST" style="display: none;">
+                          @csrf
+                          @method('PUT')
+                        </form>
+                        @endif
+                        <a href="#" class="btn btn-danger btn-sm"
+                           onclick="event.preventDefault();document.getElementById('deleteExpiration-{{ $expiration->id}}').submit();">
+                         <span class="fe fe-trash-2"></span> Eliminar
+                        </a>
+                        <form id="deleteExpiration-{{ $expiration->id}}" action="{{ route('admin.expirations.destroy', ['id' => $expiration->id]) }}" method="POST" style="display: none;">
+                          @csrf
+                          @method('DELETE')
+                        </form>
+                      </div>
                     </td>
                   </tr>
                   @endforeach

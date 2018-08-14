@@ -88,8 +88,10 @@
                       </td>
                       <td>{{ $product->upc }}</td>
                       <td>
-                        {{-- <a href="{{ route('admin.products.edit', ['id' => $product->id]) }}" class="btn btn-primary btn-sm">Editar</a> --}}
-                        <a href="{{ route('admin.expirations.create', ['upc' => $product->upc]) }}" class="btn btn-primary btn-sm"><span class="fe fe-calendar"></span> Vencimiento</a>
+                        <div class="btn-list">
+                          {{-- <a href="{{ route('admin.products.edit', ['id' => $product->id]) }}" class="btn btn-primary btn-sm">Editar</a> --}}
+                          <a href="{{ route('admin.expirations.create', ['upc' => $product->upc]) }}" class="btn btn-primary btn-sm"><span class="fe fe-calendar"></span> Vencimiento</a>
+                        </div>
                       </td>
                     </tr>
                   @endforeach

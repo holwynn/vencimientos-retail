@@ -2,7 +2,7 @@
   <div class="container">
     <div class="d-flex">
       <a class="header-brand" href="{{ route('admin.dashboard') }}">
-        <img src="{{ asset('assets/dashboard/demo/brand/tabler.svg') }}" class="header-brand-img" alt="tabler logo">
+        <img src="{{ asset('assets/dashboard/demo/brand/tabler.svg') }}" class="header-brand-img" alt="company-logo">
       </a>
       <div class="d-flex order-lg-2 ml-auto">
         <div class="dropdown d-none d-md-flex">

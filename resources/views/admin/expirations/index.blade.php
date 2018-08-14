@@ -92,15 +92,17 @@
                         </td>
                         <td>{{ $expiration->qty }}</td>
                         <td>
-                          <a href="{{ route('admin.expirations.edit', ['id' => $expiration->id]) }}" class="btn btn-primary btn-sm"><span class="fe fe-edit"></span> Editar</a>
-                          <a href="#" class="btn btn-danger btn-sm"
-                             onclick="event.preventDefault();document.getElementById('deleteExpiration-{{ $expiration->id}}').submit();">
-                           <span class="fe fe-trash-2"></span> Eliminar
-                          </a>
-                          <form id="deleteExpiration-{{ $expiration->id}}" action="{{ route('admin.expirations.destroy', ['id' => $expiration->id]) }}" method="POST" style="display: none;">
-                            @csrf
-                            @method('DELETE')
-                          </form>
+                          <div class="btn-list">
+                            <a href="{{ route('admin.expirations.edit', ['id' => $expiration->id]) }}" class="btn btn-primary btn-sm"><span class="fe fe-edit"></span> Editar</a>
+                            <a href="#" class="btn btn-danger btn-sm"
+                               onclick="event.preventDefault();document.getElementById('deleteExpiration-{{ $expiration->id}}').submit();">
+                             <span class="fe fe-trash-2"></span> Eliminar
+                            </a>
+                            <form id="deleteExpiration-{{ $expiration->id}}" action="{{ route('admin.expirations.destroy', ['id' => $expiration->id]) }}" method="POST" style="display: none;">
+                              @csrf
+                              @method('DELETE')
+                            </form>
+                          </div>
                         </td>
                       </tr>
                     @endforeach
