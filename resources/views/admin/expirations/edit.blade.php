@@ -73,6 +73,36 @@
           </div>
         </div>
       </div>
+
+      @if ($logs->count() >= 1)
+        <div class="col-lg-12">
+          <div class="card">
+            <div class="card-header bg-indigo">
+              <h3 style="color: #fafafa;" class="card-title">Logs</h3>
+            </div>
+            <div class="card-body">
+              <table class="responsive">
+                <table class="table table-hover card-table table-vcenter">
+                  <thead>
+                    <th>Dia</th>
+                    <th>Usuario</th>
+                    <th>Accion</th>
+                  </thead>
+                  <tbody>
+                    @foreach ($logs as $log)
+                      <tr>
+                        <td>{{ $log->created_at }}</td>
+                        <td>{{ $log->user->name }}</td>
+                        <td>{{ $log->message }}</td>
+                      </tr>
+                    @endforeach
+                  </tbody>
+                </table>
+              </table>
+            </div>
+          </div>
+        </div>
+      @endif 
     </div>
   </div>
 </div>

@@ -4,9 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use App\Product;
 use App\Expiration;
+use App\Log as DatabaseLog;
 use App\Http\Requests\StoreExpirationRequest;
 use App\Http\Requests\UpdateExpirationRequest;
 use App\Queries\Admin\ListExpirations;
+use App\Events\Expirations\Create;
+use App\Events\Expirations\Update;
+use App\Events\Expirations\Delete;
+use App\Events\Expirations\Check;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -48,9 +53,14 @@ class ExpirationsController extends Controller
     public function edit($id)
     {
         $expiration = Expiration::findOrFail($id);
+        $logs = DatabaseLog::expirations()
+            ->model($expiration)
+            ->latest()
+            ->get();
 
         return view('admin.expirations.edit', [
             'expiration' => $expiration,
+            'logs' => $logs,
         ]);
     }
 
@@ -60,7 +70,8 @@ class ExpirationsController extends Controller
         $expiration = $product->expirations()->create($request->validated());
 
         $request->session()->flash('message-s', 'El vencimiento ha sido creado.');
-        return redirect()->route('admin.expirations');
+        event(new Create(auth()->user(), $expiration));
+        return redirect()->route('admin.expirations.edit', ['id' => $expiration->id]);
     }
 
     public function update(UpdateExpirationRequest $request, $id)
@@ -70,7 +81,8 @@ class ExpirationsController extends Controller
         $expiration->save();
 
         $request->session()->flash('message-s', 'El vencimiento ha sido actualizado.');
-        return redirect()->back();
+        event(new Update(auth()->user(), $expiration));
+        return redirect()->route('admin.expirations.edit', ['id' => $expiration->id]);
     }
 
     public function check(Request $request, $id)
@@ -80,6 +92,7 @@ class ExpirationsController extends Controller
         $expiration->save();
 
         $request->session()->flash('message-s', 'El vencimiento ha sido revisado.');
+        event(new Check(auth()->user(), $expiration));
         return redirect()->back();
     }
 
@@ -89,6 +102,7 @@ class ExpirationsController extends Controller
         $expiration->delete();
 
         $request->session()->flash('message-s', 'El vencimiento ha sido eliminado.');
+        event(new Delete(auth()->user(), $expiration));
         return redirect()->route('admin.dashboard');
     }
 }

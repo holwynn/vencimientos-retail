@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use Validator;
 use App\Product;
+use App\Events\Products\Create;
+use App\Events\Products\Update;
+use App\Events\Products\Delete;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Http\Controllers\Controller;
@@ -45,6 +48,7 @@ class ProductsController extends Controller
     {
         $product = Product::create($request->validated());
 
+        event(new Create(auth()->user(), $product));
         return $product;
     }
 
@@ -93,6 +97,7 @@ class ProductsController extends Controller
         $product->update($request->all());
         $product->save();
 
+        event(new Update(auth()->user(), $product));
         return $product;
     }
 
@@ -112,6 +117,7 @@ class ProductsController extends Controller
 
         $product->delete();
 
+        event(new Delete(auth()->user(), $product));
         return new Response([
             'msg' => 'Product deleted'
         ], 200);
@@ -143,6 +149,8 @@ class ProductsController extends Controller
         }
 
         $product->save();
+
+        event(new Create(auth()->user(), $product));
         return $product;
     }
 }

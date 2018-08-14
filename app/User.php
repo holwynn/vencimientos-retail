@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Product;
+use App\Log as DatabaseLog;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -47,5 +48,10 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    public function logs()
+    {
+        return $this->hasMany(DatabaseLog::class);
     }
 }

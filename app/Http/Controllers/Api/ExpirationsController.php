@@ -5,6 +5,10 @@ namespace App\Http\Controllers\Api;
 use Validator;
 use App\Expiration;
 use App\Product;
+use App\Events\Expirations\Create;
+use App\Events\Expirations\Update;
+use App\Events\Expirations\Delete;
+// use App\Events\Expirations\Check;
 use App\Http\Requests\StoreExpirationRequest;
 use App\Http\Requests\UpdateExpirationRequest;
 use App\Http\Controllers\Controller;
@@ -48,6 +52,7 @@ class ExpirationsController extends Controller
         $product = Product::where('upc', $request->input('upc'))->first();
         $expiration = $product->expirations()->create($request->validated());
 
+        event(new Create(auth()->user(), $expiration));
         return $expiration->load('product');
     }
 
@@ -87,6 +92,7 @@ class ExpirationsController extends Controller
         $expiration->update($request->validated());
         $expiration->save();
 
+        event(new Update(auth()->user(), $expiration));
         return $expiration->load('product');
     }
 
@@ -106,6 +112,7 @@ class ExpirationsController extends Controller
 
         $expiration->delete();
 
+        event(new Delete(auth()->user(), $expiration));
         return new Response([
             'msg' => 'Expiration deleted'
         ], 200);

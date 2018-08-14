@@ -3,9 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Product;
+use App\Log as DatabaseLog;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Queries\Admin\ListProducts;
+use App\Events\Products\Create;
+use App\Events\Products\Update;
+use App\Events\Products\Delete;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -44,9 +48,14 @@ class ProductsController extends Controller
     public function edit($id)
     {
         $product = Product::findOrFail($id);
+        $logs = DatabaseLog::products()
+            ->model($product)
+            ->latest()
+            ->get();
 
         return view('admin.products.edit', [
-            'product' => $product
+            'product' => $product,
+            'logs' => $logs
         ]);
     }
 
@@ -60,9 +69,8 @@ class ProductsController extends Controller
         $product = Product::create($request->all());
 
         $request->session()->flash('message-s', 'El producto ha sido creado.');
-        return view('admin.products.edit', [
-            'product' => $product
-        ]);
+        event(new Create(auth()->user(), $product));
+        return redirect()->route('admin.products.edit', ['id' => $product->id]);
     }
 
     public function walmart(Request $request)
@@ -79,9 +87,8 @@ class ProductsController extends Controller
         }
 
         $request->session()->flash('message-s', 'El producto ha sido creado.');
-        return view('admin.products.edit', [
-            'product' => $product
-        ]);
+        event(new Create(auth()->user(), $product));
+        return redirect()->route('admin.products.edit', ['id' => $product->id]);
     }
 
     /**
@@ -97,11 +104,8 @@ class ProductsController extends Controller
         $product->save();
 
         $request->session()->flash('message-s', 'El producto ha sido actualizado.');
-        return redirect()->back();
-
-        // return view('admin.product', [
-        //     'product' => $product
-        // ]);
+        event(new Update(auth()->user(), $product));
+        return redirect()->route('admin.products.edit', ['id' => $product->id]);
     }
 
     /**
