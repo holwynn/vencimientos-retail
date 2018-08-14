@@ -70,7 +70,7 @@
                       <th>Nombre</th>
                       <th>Vencimiento</th>
                       <th>Cantidad</th>
-                      <th>Opciones</th>
+                      <th class="text-center">Opciones</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -92,7 +92,7 @@
                         </td>
                         <td>{{ $expiration->qty }}</td>
                         <td>
-                          <div class="btn-list">
+                          <div class="btn-list text-center">
                             <a href="{{ route('admin.expirations.edit', ['id' => $expiration->id]) }}" class="btn btn-primary btn-sm"><span class="fe fe-edit"></span> Editar</a>
                             <a href="#" class="btn btn-danger btn-sm"
                                onclick="event.preventDefault();document.getElementById('deleteExpiration-{{ $expiration->id}}').submit();">

@@ -12,8 +12,8 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="HandheldFriendly" content="True">
     <meta name="MobileOptimized" content="320">
-    <link rel="icon" href="./favicon.ico" type="image/x-icon"/>
-    <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico" />
+    <link rel="icon" href="{{ asset('favicon.png') }}" type="image/png"/>
+    <link rel="shortcut icon" href="{{ asset('favicon.png') }}" type="image/png"/>
     <!-- Generated: 2018-04-16 09:29:05 +0200 -->
     <title>Dashboard - VenciPro</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
