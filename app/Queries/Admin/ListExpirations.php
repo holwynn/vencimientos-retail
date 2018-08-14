@@ -9,19 +9,19 @@ class ListExpirations
     public function search($request, $paginate = 10)
     {
         $request->validate([
-            'since' => 'nullable|date',
-            'to' => 'nullable|date',
+            'dateFrom' => 'nullable|date',
+            'dateTo' => 'nullable|date',
             'paginate' => 'nullable|integer',
         ]);
 
         $query = Expiration::with('product');
 
-        if ($request->filled('since')) {
-            $query->where('expiration', '>=', $request->input('since'));
+        if ($request->filled('dateFrom')) {
+            $query->where('expiration', '>=', $request->input('dateFrom'));
         }
 
-        if ($request->filled('to')) {
-            $query->where('expiration', '<=', $request->input('to'));
+        if ($request->filled('dateTo')) {
+            $query->where('expiration', '<=', $request->input('dateTo'));
         }
 
         if ($request->filled('paginate')) {

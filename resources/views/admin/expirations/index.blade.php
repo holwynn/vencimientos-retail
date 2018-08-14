@@ -18,14 +18,14 @@
                 <div class="col-md-3">
                   <div class="form-group">
                     <label class="form-label">Desde</label>
-                    <input type="date" name="since" class="form-control" value="{{ Request::input('since') }}">
+                    <input type="date" name="dateFrom" class="form-control" value="{{ Request::input('since') }}">
                   </div>
                 </div>
 
                 <div class="col-md-3">
                   <div class="form-group">
                     <label class="form-label">Hasta</label>
-                    <input type="date" name="to" class="form-control" value="{{ Request::input('to') }}">
+                    <input type="date" name="dateTo" class="form-control" value="{{ Request::input('to') }}">
                   </div>
                 </div>
 
