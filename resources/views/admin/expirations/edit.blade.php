@@ -57,9 +57,12 @@
 
       <div class="col-lg-3">
         <div class="card">
+          <div class="card-header bg-indigo">
+            <h3 style="color: #fafafa;" class="card-title">Producto</h3>
+          </div>
           <div class="card-body">
             <div class="mb-4 text-center">
-              <h3>Preview</h3>
+              <p>{{ $expiration->product->name }}</p>
               @if ($expiration->product->img)
                 <img src="{{ $expiration->product->img }}" class="img-fluid">
               @else

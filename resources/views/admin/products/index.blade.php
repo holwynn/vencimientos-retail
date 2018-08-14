@@ -20,15 +20,25 @@
               <div class="row">
                 <div class="col-md-3">
                   <div class="form-group">
-                    <label class="form-label">Nombre</label>
-                    <input type="text" name="name" class="form-control" value="{{ Request::input('name') }}" placeholder="Nombre">
+                    <label class="form-label">Producto</label>
+                    <div class="input-icon">
+                      <div class="input-icon-addon">
+                        <span class="fe fe-shopping-cart"></span>
+                      </div>
+                      <input type="text" name="name" class="form-control" value="{{ Request::input('name') }}" placeholder="Producto">
+                    </div>
                   </div>
                 </div>
 
                 <div class="col-md-3">
                   <div class="form-group">
                     <label class="form-label">UPC</label>
-                    <input type="text" name="upc" class="form-control" value="{{ Request::input('upc') }}" placeholder="UPC" minlength="13" maxlength="13">
+                    <div class="input-icon">
+                      <div class="input-icon-addon">
+                        <span class="fe fe-package"></span>
+                      </div>
+                      <input type="text" name="upc" class="form-control" value="{{ Request::input('upc') }}" placeholder="UPC" minlength="13" maxlength="13">
+                    </div>                    
                   </div>
                 </div>
 
@@ -46,7 +56,7 @@
                 <div class="col-md-3">
                   <div class="form-group">
                     <label class="form-label">Buscar</label>
-                    <button type="submit" class="btn btn-primary btn-block">Buscar</button>
+                    <button type="submit" class="btn btn-primary btn-block"><span class="fe fe-search"></span> Buscar</button>
                   </div>
                 </div>
               </div>
@@ -56,12 +66,12 @@
             
             @if($products->count() >= 1)
             <div class="table-responsive">
-              <table class="table card-table table-vcenter">
+              <table class="table table-hover card-table table-vcenter">
                 <thead>
                   <th>Imagen</th>
                   <th>Nombre</th>
                   <th>UPC</th>
-                  <th></th>
+                  <th>Opciones</th>
                 </thead>
                 <tbody>
                   @foreach ($products as $product)
@@ -79,7 +89,7 @@
                       <td>{{ $product->upc }}</td>
                       <td>
                         {{-- <a href="{{ route('admin.products.edit', ['id' => $product->id]) }}" class="btn btn-primary btn-sm">Editar</a> --}}
-                        <a href="{{ route('admin.expirations.create', ['upc' => $product->upc]) }}" class="btn btn-primary btn-sm">Vencimiento</a>
+                        <a href="{{ route('admin.expirations.create', ['upc' => $product->upc]) }}" class="btn btn-primary btn-sm"><span class="fe fe-calendar"></span> Vencimiento</a>
                       </td>
                     </tr>
                   @endforeach

@@ -18,14 +18,24 @@
                 <div class="col-md-3">
                   <div class="form-group">
                     <label class="form-label">Desde</label>
-                    <input type="date" name="dateFrom" class="form-control" value="{{ Request::input('since') }}">
+                    <div class="input-icon">
+                      <div class="input-icon-addon">
+                        <span class="fe fe-calendar"></span>
+                      </div>
+                      <input type="date" name="dateFrom" class="form-control" value="{{ Request::input('since') }}">
+                    </div>
                   </div>
                 </div>
 
                 <div class="col-md-3">
                   <div class="form-group">
                     <label class="form-label">Hasta</label>
-                    <input type="date" name="dateTo" class="form-control" value="{{ Request::input('to') }}">
+                    <div class="input-icon">
+                      <div class="input-icon-addon">
+                        <span class="fe fe-calendar"></span>
+                      </div>
+                      <input type="date" name="dateTo" class="form-control" value="{{ Request::input('to') }}">
+                    </div>
                   </div>
                 </div>
 
@@ -43,7 +53,7 @@
                 <div class="col-md-3">
                   <div class="form-group">
                     <label class="form-label">Buscar</label>
-                    <button type="submit" class="btn btn-primary btn-block">Buscar</button>
+                    <button type="submit" class="btn btn-primary btn-block"><span class="fe fe-search"></span> Buscar</button>
                   </div>
                 </div>
               </div>
@@ -60,8 +70,7 @@
                       <th>Nombre</th>
                       <th>Vencimiento</th>
                       <th>Cantidad</th>
-                      <th></th>
-                      <th></th>
+                      <th>Opciones</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -75,7 +84,7 @@
                           @endif
                         </td>
                         <td>
-                          <a href="{{ route('admin.products.edit', ['id' => $expiration->product->id]) }}">{{ $expiration->product->name }}</a>
+                          <a href="{{ route('admin.expirations.edit', ['id' => $expiration->id]) }}">{{ $expiration->product->name }}</a>
                         </td>
                         <td>
                           {{ $expiration->expirationLocalized(true) }} <br>
@@ -83,12 +92,10 @@
                         </td>
                         <td>{{ $expiration->qty }}</td>
                         <td>
-                          <a href="{{ route('admin.expirations.edit', ['id' => $expiration->id]) }}" class="btn btn-primary btn-sm">Editar</a>
-                        </td>
-                        <td>
+                          <a href="{{ route('admin.expirations.edit', ['id' => $expiration->id]) }}" class="btn btn-primary btn-sm"><span class="fe fe-edit"></span> Editar</a>
                           <a href="#" class="btn btn-danger btn-sm"
                              onclick="event.preventDefault();document.getElementById('deleteExpiration-{{ $expiration->id}}').submit();">
-                           Eliminar
+                           <span class="fe fe-trash-2"></span> Eliminar
                           </a>
                           <form id="deleteExpiration-{{ $expiration->id}}" action="{{ route('admin.expirations.destroy', ['id' => $expiration->id]) }}" method="POST" style="display: none;">
                             @csrf

@@ -16,7 +16,7 @@
             <a href="{{ route('admin.dashboard') }}" data-location="dashboard" class="nav-link"><i class="fe fe-home"></i> Dashboard</a>
           </li>
           <li class="nav-item">
-            <a href="javascript:void(0)" class="nav-link" data-location="products" data-toggle="dropdown"><i class="fe fe-box"></i> Productos</a>
+            <a href="javascript:void(0)" class="nav-link" data-location="products" data-toggle="dropdown"><i class="fe fe-shopping-cart"></i> Productos</a>
             <div class="dropdown-menu dropdown-menu-arrow">
               <a href="{{ route('admin.products') }}" class="dropdown-item ">Lista</a>
               <a href="{{ route('admin.products.create') }}" class="dropdown-item ">Agregar</a>
