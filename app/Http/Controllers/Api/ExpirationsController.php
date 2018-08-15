@@ -18,21 +18,11 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 
 class ExpirationsController extends Controller
 {
-    /**
-     * Create a new AuthController instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('auth:api', ['except' => ['index', 'show']]);
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         return Expiration::with('product')
@@ -41,14 +31,10 @@ class ExpirationsController extends Controller
             ->get();
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(StoreExpirationRequest $request)
     {
+        $this->authorize('create', Expiration::class);
+
         $product = Product::where('upc', $request->input('upc'))->first();
         $expiration = $product->expirations()->create($request->validated());
 
@@ -56,12 +42,6 @@ class ExpirationsController extends Controller
         return $expiration->load('product');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         $expiration = Expiration::with('product')
@@ -74,16 +54,11 @@ class ExpirationsController extends Controller
         return $expiration;
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(UpdateExpirationRequest $request, $id)
     {
-        $expiration = Expiration::find($id);
+        $expiration = Expiration::findOrFail($id);
+
+        $this->authorize('update', $expiration);
 
         if (!$expiration) {
             $this->throwUnknownExpiration();
@@ -96,15 +71,11 @@ class ExpirationsController extends Controller
         return $expiration->load('product');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         $expiration = Expiration::find($id);
+
+        $this->authorize('delete', $expiration);
 
         if (!$expiration) {
             $this->throwUnknownExpiration();
@@ -118,11 +89,6 @@ class ExpirationsController extends Controller
         ], 200);
     }
 
-    /**
-     * Throw 404 if expiration doesn't exist
-     * 
-     * @return Illuminate\Http\Exceptions\HttpResponseException
-     */
     public function throwUnknownExpiration() {
         throw new HttpResponseException(response()->json([
             'msg' => 'Expiration does not exist',

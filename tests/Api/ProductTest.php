@@ -103,7 +103,7 @@ class ProductTest extends TestCase
     }
 
     /** @test */
-    public function it_doesnt_create_products_if_unauthorized()
+    public function it_doesnt_create_products_if_unauthenticated()
     {
         $res = $this->json('POST', '/api/products', [
             'name' => 'My new product',
@@ -115,7 +115,7 @@ class ProductTest extends TestCase
     }
 
     /** @test */
-    public function it_doesnt_update_products_if_unauthorized()
+    public function it_doesnt_update_products_if_unauthenticated()
     {
         $prod = factory(\App\Product::class)->create();
 
@@ -127,7 +127,7 @@ class ProductTest extends TestCase
     }
 
     /** @test */
-    public function it_doesnt_delete_products_if_unauthorized()
+    public function it_doesnt_delete_products_if_unauthenticated()
     {
         $prod = factory(\App\Product::class)->create();
 
@@ -147,7 +147,7 @@ class ProductTest extends TestCase
         $res = $this->withHeaders([
             'Authorization' => 'Bearer '.$token,
         ])->json('PUT', '/api/products/'.$prod->upc, [
-            'upc' => $prod->upc,
+            'upc' => 'this is not a upc code',
         ]);
 
         $res->assertStatus(422);

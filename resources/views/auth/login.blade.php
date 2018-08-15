@@ -12,15 +12,25 @@
         <div class="card-title">Iniciar sesion</div>
         <div class="form-group">
           <label class="form-label">Correo electrónico</label>
-          <input type="email" name="email" class="form-control" required>
+          <div class="input-icon">
+            <span class="input-icon-addon">
+              <i class="fe fe-mail"></i>
+            </span>
+            <input type="email" name="email" class="form-control" placeholder="Email" autofocus="" required>
+          </div>
         </div>
         <div class="form-group">
           <label class="form-label">Contraseña</label>
-          <input type="password" name="password" class="form-control" required>
+          <div class="input-icon">
+            <div class="input-icon-addon">
+              <i class="fe fe-lock"></i>
+            </div>
+            <input type="password" name="password" class="form-control" placeholder="Contraseña" required>
+          </div>
         </div>
         <div class="form-group">
           <label class="custom-control custom-checkbox">
-            <input type="checkbox" name="remember-me" class="custom-control-input" />
+            <input type="checkbox" name="remember" class="custom-control-input" />
             <span class="custom-control-label">Recordame</span>
           </label>
         </div>

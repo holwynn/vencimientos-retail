@@ -106,7 +106,7 @@ class ExpirationTest extends TestCase
     }
 
     /** @test */
-    public function it_doesnt_create_expirations_if_unauthorized()
+    public function it_doesnt_create_expirations_if_unauthenticated()
     {
         $prod = factory(\App\Product::class)->create();
 
@@ -120,7 +120,7 @@ class ExpirationTest extends TestCase
     }
 
     /** @test */
-    public function it_doesnt_update_expirations_if_unauthorized()
+    public function it_doesnt_update_expirations_if_unauthenticated()
     {
         $expiration = factory(\App\Expiration::class)->create();
 
@@ -132,7 +132,7 @@ class ExpirationTest extends TestCase
     }
 
     /** @test */
-    public function it_doesnt_delete_expirations_if_unauthorized()
+    public function it_doesnt_delete_expirations_if_unauthenticated()
     {
         $expiration = factory(\App\Expiration::class)->create();
 

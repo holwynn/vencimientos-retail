@@ -18,21 +18,11 @@ use Carbon\Carbon;
 
 class ExpirationsController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('auth');
     }
 
-    /**
-     * Show all expirations
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(Request $request)
     {
         $query = new ListExpirations();
@@ -66,6 +56,8 @@ class ExpirationsController extends Controller
 
     public function store(StoreExpirationRequest $request)
     {
+        $this->authorize('create', Product::class);
+
         $product = Product::where('upc', $request->input('upc'))->first();
         $expiration = $product->expirations()->create($request->validated());
 
@@ -77,6 +69,9 @@ class ExpirationsController extends Controller
     public function update(UpdateExpirationRequest $request, $id)
     {
         $expiration = Expiration::findOrFail($id);
+
+        $this->authorize('update', $expiration);
+
         $expiration->update($request->all());
         $expiration->save();
 
@@ -88,6 +83,9 @@ class ExpirationsController extends Controller
     public function check(Request $request, $id)
     {
         $expiration = Expiration::findOrFail($id);
+
+        $this->authorize('update', $expiration);
+
         $expiration->checked = true;
         $expiration->save();
 
@@ -99,6 +97,9 @@ class ExpirationsController extends Controller
     public function destroy(Request $request, $id)
     {
         $expiration = Expiration::findOrFail($id);
+
+        $this->authorize('delete', $expiration);
+
         $expiration->delete();
 
         $request->session()->flash('message-s', 'El vencimiento ha sido eliminado.');

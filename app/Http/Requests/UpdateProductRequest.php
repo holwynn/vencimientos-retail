@@ -24,8 +24,8 @@ class UpdateProductRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string',
-            'upc' => 'required|string|min:13|max:13',
+            'name' => 'string',
+            'upc' => 'string|min:13|max:13',
             'img' => 'nullable|string',
             'checked' => 'boolean',
         ];
@@ -39,8 +39,8 @@ class UpdateProductRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'A name is required.',
-            'upc.required'  => 'UPC code is required.',
+            'name.string' => 'A name is required.',
+            'upc.string'  => 'UPC code is required.',
             'upc.unique' => 'A product with that UPC code is already registered.',
             'upc.min' => 'UPC code must be exactly 13 characters',
             'upc.max' => 'UPC code must be exactly 13 characters',

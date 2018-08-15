@@ -16,21 +16,11 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 
 class ProductsController extends Controller
 {
-    /**
-     * Create a new AuthController instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('auth:api', ['except' => ['index', 'show']]);
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         return Product::orderBy('id', 'DESC')
@@ -38,26 +28,16 @@ class ProductsController extends Controller
             ->get();
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(StoreProductRequest $request)
     {
+        $this->authorize('create', Product::class);
+
         $product = Product::create($request->validated());
 
         event(new Create(auth()->user(), $product));
         return $product;
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  str  $upc
-     * @return \Illuminate\Http\Response
-     */
     public function show($upc)
     {
         if (strlen($upc) != 13) {
@@ -79,16 +59,11 @@ class ProductsController extends Controller
         return $product;
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  str  $upc
-     * @return \Illuminate\Http\Response
-     */
     public function update(UpdateProductRequest $request, $upc)
     {
         $product = Product::where('upc', $upc)->first();
+
+        $this->authorize('update', $product);
 
         if (!$product) {
             $this->throwUnknownProduct();
@@ -101,15 +76,11 @@ class ProductsController extends Controller
         return $product;
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  str  $upc
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($upc)
     {
         $product = Product::where('upc', $upc)->first();
+
+        $this->authorize('delete', $product);
 
         if (!$product) {
             $this->throwUnknownProduct();
@@ -123,24 +94,15 @@ class ProductsController extends Controller
         ], 200);
     }
 
-    /**
-     * Throw 404 if product doesn't exist
-     * 
-     * @return Illuminate\Http\Exceptions\HttpResponseException
-     */
     private function throwUnknownProduct() {
         throw new HttpResponseException(response()->json([
             'msg' => 'Product does not exist',
         ]), 404);
     }
 
-    /**
-     * Search and save a product from walmart db
-     * 
-     * @param str $upc
-     * @return App\Product
-     */
     private function fromWalmart($upc) {
+        $this->authorize('create', Product::class);
+        
         $product = new Product();
         $product->fromWalmart($upc);
 

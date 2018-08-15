@@ -27,7 +27,7 @@
             <span class="avatar" style="background-image: url({{ asset('assets/dashboard/images/user.png') }})"></span>
             <span class="ml-2 d-none d-lg-block">
               <span class="text-default">{{ auth()->user()->name }}</span>
-              <small class="text-muted d-block mt-1">Encargado</small>
+              <small class="text-muted d-block mt-1">{{ auth()->user()->levelName }}</small>
             </span>
           </a>
           <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">

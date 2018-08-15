@@ -15,21 +15,11 @@ use App\Http\Controllers\Controller;
 
 class ProductsController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('auth');
     }
 
-    /**
-     * Show all products
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(Request $request)
     {
         $query = new ListProducts();
@@ -40,11 +30,6 @@ class ProductsController extends Controller
         ]);
     }
 
-    /**
-     * Show a product
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $product = Product::findOrFail($id);
@@ -66,6 +51,8 @@ class ProductsController extends Controller
 
     public function store(StoreProductRequest $request)
     {
+        $this->authorize('create', Product::class);
+
         $product = Product::create($request->all());
 
         $request->session()->flash('message-s', 'El producto ha sido creado.');
@@ -75,6 +62,8 @@ class ProductsController extends Controller
 
     public function walmart(Request $request)
     {
+        // call authorize in fromWalmart() because this method
+        // wont always create a product
         $product = Product::where('upc', $request->input('upc'))->first();
 
         if (!$product) {
@@ -91,14 +80,11 @@ class ProductsController extends Controller
         return redirect()->route('admin.products.edit', ['id' => $product->id]);
     }
 
-    /**
-     * Update a product
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function update(UpdateProductRequest $request, $id)
     {
         $product = Product::findOrFail($id);
+
+        $this->authorize('update', $product);
 
         $product->update($request->all());
         $product->save();
@@ -108,13 +94,9 @@ class ProductsController extends Controller
         return redirect()->route('admin.products.edit', ['id' => $product->id]);
     }
 
-    /**
-     * Search and save a product from walmart db
-     * 
-     * @param str $upc
-     * @return App\Product
-     */
     private function fromWalmart($upc) {
+        $this->authorize('create', Product::class);
+
         $product = new Product();
         $product->fromWalmart($upc);
 

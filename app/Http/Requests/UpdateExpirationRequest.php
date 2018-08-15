@@ -26,9 +26,9 @@ class UpdateExpirationRequest extends FormRequest
     public function rules()
     {
         return [
-            'qty' => 'nullable|integer',
-            'expiration' => 'nullable|date',
-            'checked' => 'nullable|boolean',
+            'qty' => 'integer',
+            'expiration' => 'date',
+            'checked' => 'boolean',
         ];
     }
 
@@ -40,9 +40,8 @@ class UpdateExpirationRequest extends FormRequest
     public function messages()
     {
         return [
-            'qty.required' => 'You must specify a quantity.',
-            'expiration.required'  => 'You must specify an expiration date.',
-            'expiration.date' => 'The expiration should be a datetime format.'
+            'qty.integer' => 'You must specify a quantity.',
+            'expiration.date'  => 'You must specify an expiration date.',
         ];
     }
 }

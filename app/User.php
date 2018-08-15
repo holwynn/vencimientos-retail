@@ -12,6 +12,11 @@ class User extends Authenticatable implements JWTSubject
 {
     use Notifiable;
 
+    const LEVEL_USER = 1;
+    const LEVEL_EMPLOYEE = 2;
+    const LEVEL_MANAGER = 3;
+    const LEVEL_ADMIN = 4;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -28,6 +33,13 @@ class User extends Authenticatable implements JWTSubject
      */
     protected $hidden = [
         'password', 'remember_token',
+    ];
+
+    protected $levelNames = [
+        'Usuario',
+        'Empleado',
+        'Encargado',
+        'Administrador',
     ];
 
     /**
@@ -53,5 +65,10 @@ class User extends Authenticatable implements JWTSubject
     public function logs()
     {
         return $this->hasMany(DatabaseLog::class);
+    }
+
+    public function getLevelNameAttribute()
+    {
+        return $this->levelNames[$this->level - 1];
     }
 }

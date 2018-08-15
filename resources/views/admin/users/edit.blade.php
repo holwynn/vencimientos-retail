@@ -11,7 +11,7 @@
               <img src="{{ asset('assets/dashboard/images/user.png') }}" alt="" class="avatar avatar-xxl mr-5">
               <div class="media-body">
                 <h4 class="m-0">{{ $user->name }}</h4>
-                <p class="text-muted">Encargado</p>
+                <p class="text-muted">{{ $user->levelName }}</p>
                 <p>{{ $user->email }}</p>
               </div>
             </div>
@@ -62,7 +62,7 @@
                       <span class="input-icon-addon">
                         <i class="fe fe-lock"></i>
                       </span>
-                      <input type="password" name="password" class="form-control">
+                      <input type="password" name="password" class="form-control" placeholder="******">
                     </div>
                   </div>
                 </div>
