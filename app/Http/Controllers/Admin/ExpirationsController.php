@@ -78,7 +78,7 @@ class ExpirationsController extends Controller
         $request->session()->flash('message-s', 'El vencimiento ha sido actualizado.');
         event(new Update(auth()->user(), $expiration));
 
-        if (strpos($request->header('referer'), 'dashboard')) {
+        if ($this->isDashboard($request)) {
             return redirect()->back();
         }
 
@@ -96,10 +96,15 @@ class ExpirationsController extends Controller
         $request->session()->flash('message-s', 'El vencimiento ha sido eliminado.');
         event(new Delete(auth()->user(), $expiration));
 
-        if (strpos($request->header('referer'), 'dashboard')) {
+        if ($this->isDashboard($request)) {
             return redirect()->back();
         }
 
         return redirect()->route('admin.expirations');
+    }
+
+    private function isDashboard($request)
+    {
+        return strpos($request->header('referer'), 'dashboard');
     }
 }
