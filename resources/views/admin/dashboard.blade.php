@@ -106,9 +106,10 @@
                            onclick="event.preventDefault();document.getElementById('checkExpiration-{{ $expiration->id}}').submit();">
                          <span class="fe fe-check"></span> Revisar
                         </a>
-                        <form id="checkExpiration-{{ $expiration->id}}" action="{{ route('admin.expirations.check', ['id' => $expiration->id]) }}" method="POST" style="display: none;">
+                        <form id="checkExpiration-{{ $expiration->id}}" action="{{ route('admin.expirations.update', ['id' => $expiration->id]) }}" method="POST" style="display: none;">
                           @csrf
                           @method('PUT')
+                          <input type="text" name="checked" value="1" hidden>
                         </form>
                         @endif
                         <a href="#" class="btn btn-danger btn-sm"

@@ -42,9 +42,10 @@
                </a>
             </form>
 
-            <form id="checkExpiration" action="{{ route('admin.expirations.check', ['id' => $expiration->id]) }}" method="POST" style="display: none;">
+            <form id="checkExpiration" action="{{ route('admin.expirations.update', ['id' => $expiration->id]) }}" method="POST" style="display: none;">
               @csrf
               @method('PUT')
+              <input type="text" name="checked" value="1" hidden>
             </form>
 
             <form id="deleteExpiration" action="{{ route('admin.expirations.destroy', ['id' => $expiration->id]) }}" method="POST" style="display: none;">

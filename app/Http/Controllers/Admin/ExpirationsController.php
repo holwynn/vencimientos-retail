@@ -77,21 +77,12 @@ class ExpirationsController extends Controller
 
         $request->session()->flash('message-s', 'El vencimiento ha sido actualizado.');
         event(new Update(auth()->user(), $expiration));
+
+        if (strpos($request->header('referer'), 'dashboard')) {
+            return redirect()->back();
+        }
+
         return redirect()->route('admin.expirations.edit', ['id' => $expiration->id]);
-    }
-
-    public function check(Request $request, $id)
-    {
-        $expiration = Expiration::findOrFail($id);
-
-        $this->authorize('update', $expiration);
-
-        $expiration->checked = true;
-        $expiration->save();
-
-        $request->session()->flash('message-s', 'El vencimiento ha sido revisado.');
-        event(new Check(auth()->user(), $expiration));
-        return redirect()->back();
     }
 
     public function destroy(Request $request, $id)
@@ -104,6 +95,11 @@ class ExpirationsController extends Controller
 
         $request->session()->flash('message-s', 'El vencimiento ha sido eliminado.');
         event(new Delete(auth()->user(), $expiration));
-        return redirect()->route('admin.dashboard');
+
+        if (strpos($request->header('referer'), 'dashboard')) {
+            return redirect()->back();
+        }
+
+        return redirect()->route('admin.expirations');
     }
 }
