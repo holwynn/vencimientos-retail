@@ -8,7 +8,7 @@
         <div class="card">
           <div class="card-body">
             <div class="media">
-              <img src="{{ asset('assets/dashboard/images/user.png') }}" alt="" class="avatar avatar-xxl mr-5">
+              <img src="{{ asset('assets/user.png') }}" alt="" class="avatar avatar-xxl mr-5">
               <div class="media-body">
                 <h4 class="m-0">{{ $user->name }}</h4>
                 <p class="text-muted">{{ $user->levelName }}</p>
