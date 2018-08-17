@@ -76,7 +76,7 @@
                     <th>Vencimiento</th>
                     <th>Cantidad</th>
                     <th>Estado</th>
-                    <th>Opciones</th>
+                    <th class="text-center">Opciones</th>
                   </tr>
                 </thead>
                 <tbody>
