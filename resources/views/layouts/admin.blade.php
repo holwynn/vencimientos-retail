@@ -14,27 +14,11 @@
     <meta name="MobileOptimized" content="320">
     <link rel="icon" href="{{ asset('favicon.png') }}" type="image/png"/>
     <link rel="shortcut icon" href="{{ asset('favicon.png') }}" type="image/png"/>
-    <!-- Generated: 2018-04-16 09:29:05 +0200 -->
     <title>Dashboard - VenciPro</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext">
-    <script src="{{ asset('assets/dashboard/js/require.min.js') }}"></script>
-    <script>
-      requirejs.config({
-          baseUrl: '{{ asset("/assets/dashboard") }}'
-      });
-    </script>
     <!-- Dashboard Core -->
     <link href="{{ asset('assets/dashboard/css/dashboard.css') }}" rel="stylesheet" />
-    <script src="{{ asset('assets/dashboard/js/dashboard.js') }}"></script>
-    <!-- c3.js Charts Plugin -->
-    <link href="{{ asset('assets/dashboard/plugins/charts-c3/plugin.css') }}" rel="stylesheet" />
-    <script src="{{ asset('assets/dashboard/plugins/charts-c3/plugin.js') }}"></script>
-    <!-- Google Maps Plugin -->
-    {{-- <link href="./assets/plugins/maps-google/plugin.css" rel="stylesheet" />
-    <script src="./assets/plugins/maps-google/plugin.js"></script> --}}
-    <!-- Input Mask Plugin -->
-    <script src="{{ asset('assets/dashboard/plugins/input-mask/plugin.js') }}"></script>
   </head>
   <body class="">
     <div class="page">
@@ -48,5 +32,10 @@
       </div>
       @include('admin.components.footer')
     </div>
+
+    <script src="{{ asset('assets/dashboard/js/vendors/jquery-3.2.1.slim.min.js') }}"></script>
+    <script src="{{ asset('assets/dashboard/js/vendors/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('assets/dashboard/js/dashboard.js') }}"></script>
+    <script src="{{ asset('assets/dashboard/js/core.js') }}"></script>
   </body>
 </html>
