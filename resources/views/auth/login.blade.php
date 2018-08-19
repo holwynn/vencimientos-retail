@@ -4,7 +4,7 @@
 <div class="row">
   <div class="col col-login mx-auto">
     <div class="text-center mb-6">
-      <img src="./demo/brand/tabler.svg" class="h-6" alt="">
+      <img src="{{ asset('assets/logo.png') }}" class="h-8" alt="">
     </div>
     <form method="POST" class="card" action="{{ route('login') }}">
       @csrf

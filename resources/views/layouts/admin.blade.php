@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext">
     <!-- Dashboard Core -->
     <link href="{{ asset('assets/dashboard/css/dashboard.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/dashboard/css/bshidden.css') }}" rel="stylesheet" />
   </head>
   <body class="">
     <div class="page">

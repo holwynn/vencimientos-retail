@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return 'walmart';
+    return view('landing');
 });
 
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');

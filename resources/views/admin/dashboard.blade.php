@@ -8,7 +8,7 @@
         Dashboard
       </h1>
     </div>
-    <div class="row row-cards">
+    <div class="row row-cards hidden-sm-down">
       <div class="col-sm-6 col-lg-3">
         <div class="card p-3">
           <div class="d-flex align-items-center">
@@ -64,8 +64,6 @@
           <div class="card-header bg-indigo">
             <h3 style="color: #fafafa;" class="card-title">Vencimientos de {{ ucfirst($today->formatLocalized('%B')) }}</h3>
           </div>
-          {{-- Dashboard tables look better if they're not wrapped in the card body --}}
-          {{-- <div class="card-body"> --}}
             @include('admin.components.errors')
             @include('admin.components.flash')
             <div class="table-responsive">
@@ -74,7 +72,7 @@
                   <tr>
                     <th>Nombre</th>
                     <th>Vencimiento</th>
-                    <th>Cantidad</th>
+                    <th class="hidden-sm-down">Cantidad</th>
                     <th>Estado</th>
                     <th class="text-center">Opciones</th>
                   </tr>
@@ -82,14 +80,16 @@
                 <tbody>
                   @foreach ($expirations as $expiration)
                   <tr>
-                    <td><a href="{{ route('admin.expirations.edit', ['id' => $expiration->id]) }}" class="text-inherit">{{ $expiration->product->name }}</a></td>
+                    <td>
+                      <a href="{{ route('admin.expirations.edit', ['id' => $expiration->id]) }}" class="text-inherit">
+                        {{ $expiration->product->name }}
+                      </a>
+                    </td>
                     <td>
                       {{ $expiration->expirationLocalized() }} <br>
                       (<strong>{{ $expiration->diffLocalized }}</strong>)
                     </td>
-                    <td>
-                      {{ $expiration->qty }}
-                    </td>
+                    <td class="hidden-sm-down">{{ $expiration->qty }}</td>
                     <td>
                       @if ($expiration->checked)
                       <span class="status-icon bg-success"></span> Revisado
@@ -127,7 +127,6 @@
                 </tbody>
               </table>
             </div>
-          {{-- </div> --}}
         </div>
       </div>
     </div>
