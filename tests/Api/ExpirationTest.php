@@ -15,7 +15,7 @@ class ExpirationTest extends TestCase
     {
         $expiration = factory(\App\Expiration::class)->create();
 
-        $res = $this->json('GET', '/api/expirations');
+        $res = $this->json('GET', route('api.expirations'));
 
         $res->assertStatus(200);
         $res->assertJson([0 => [
@@ -30,7 +30,9 @@ class ExpirationTest extends TestCase
     {
         $expiration = factory(\App\Expiration::class)->create();
 
-        $res = $this->json('GET', '/api/expirations/'.$expiration->id);
+        $res = $this->json('GET', route('api.expirations.show', [
+            'id' => $expiration->id]
+        ));
 
         $res->assertStatus(200);
         $res->assertJson([
@@ -48,13 +50,12 @@ class ExpirationTest extends TestCase
         $user = factory(\App\User::class)->create();
         $token = auth('api')->tokenById($user->id);
 
-        $res = $this->withHeaders([
-            'Authorization' => 'Bearer '.$token,
-        ])->json('POST', '/api/expirations', [
-            'expiration' => '2018-02-14 00:00:00',
-            'qty' => 14,
-            'upc' => $prod->upc,
-        ]);
+        $res = $this->jwt($token)
+            ->json('POST', route('api.expirations.store'), [
+                'expiration' => '2018-02-14 00:00:00',
+                'qty' => 14,
+                'upc' => $prod->upc,
+            ]);
 
         $res->assertStatus(201);
         $res->assertJson([
@@ -71,13 +72,12 @@ class ExpirationTest extends TestCase
         $user = factory(\App\User::class)->create();
         $token = auth('api')->tokenById($user->id);
 
-        $res = $this->withHeaders([
-            'Authorization' => 'Bearer '.$token,
-        ])->json('PUT', '/api/expirations/'.$expiration->id, [
-            'qty' => 12,
-            'expiration' => '2018-05-10 12:04:33',
-            'checked' => 1,
-        ]);
+        $res = $this->jwt($token)
+            ->json('PUT', route('api.expirations.update', ['id' => $expiration->id]), [
+                'qty' => 12,
+                'expiration' => '2018-05-10 12:04:33',
+                'checked' => 1,
+            ]);
 
         $res->assertStatus(200);
         $res->assertJson([
@@ -95,9 +95,10 @@ class ExpirationTest extends TestCase
         $user = factory(\App\User::class)->create();
         $token = auth('api')->tokenById($user->id);
 
-        $res = $this->withHeaders([
-            'Authorization' => 'Bearer '.$token,
-        ])->json('DELETE', '/api/expirations/'.$expiration->id);
+        $res = $this->jwt($token)
+            ->json('DELETE', route('api.expirations.destroy', [
+                'id' => $expiration->id]
+            ));
 
         $res->assertStatus(200);
         $res->assertJson([
@@ -110,7 +111,7 @@ class ExpirationTest extends TestCase
     {
         $prod = factory(\App\Product::class)->create();
 
-        $res = $this->json('POST', '/api/expirations', [
+        $res = $this->json('POST', route('api.expirations.store'), [
             'expiration' => '2018-02-14 00:00:00',
             'qty' => 14,
             'upc' => $prod->upc,
@@ -124,7 +125,7 @@ class ExpirationTest extends TestCase
     {
         $expiration = factory(\App\Expiration::class)->create();
 
-        $res = $this->json('PUT', '/api/expirations/'.$expiration->id, [
+        $res = $this->json('PUT', route('api.expirations.update', ['id' => $expiration->id]), [
             'expiration' => '2014-01-01 12:00:00',
         ]);
 
@@ -136,7 +137,9 @@ class ExpirationTest extends TestCase
     {
         $expiration = factory(\App\Expiration::class)->create();
 
-        $res = $this->json('DELETE', '/api/expirations/'.$expiration->id);
+        $res = $this->json('DELETE', route('api.expirations.destroy', [
+            'id' => $expiration->id]
+        ));
 
         $res->assertStatus(401);
     }
@@ -149,11 +152,10 @@ class ExpirationTest extends TestCase
         $user = factory(\App\User::class)->create();
         $token = auth('api')->tokenById($user->id);
 
-        $res = $this->withHeaders([
-            'Authorization' => 'Bearer '.$token,
-        ])->json('PUT', '/api/expirations/'.$expiration->id, [
-            'expiration' => 'this is not a date',
-        ]);
+        $res = $this->jwt($token)
+            ->json('PUT', route('api.expirations.update', ['id' => $expiration->id]), [
+                'expiration' => 'this is not a date',
+            ]);
 
         $res->assertStatus(422);
     }

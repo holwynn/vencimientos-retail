@@ -24,14 +24,14 @@ Route::group([
     Route::post('register', 'AuthController@register');
 });
 
-Route::middleware('api')->get('/products', 'ProductsController@index');
-Route::middleware('api')->get('/products/{upc}', 'ProductsController@show');
-Route::middleware('api')->post('/products', 'ProductsController@store');
-Route::middleware('api')->put('/products/{upc}', 'ProductsController@update');
-Route::middleware('api')->delete('/products/{upc}', 'ProductsController@destroy');
+Route::middleware('api')->get('/products', 'ProductsController@index')->name('api.products');
+Route::middleware('api')->get('/products/{upc}', 'ProductsController@show')->name('api.products.show');
+Route::middleware('api')->post('/products', 'ProductsController@store')->name('api.products.store');
+Route::middleware('api')->put('/products/{upc}', 'ProductsController@update')->name('api.products.update');
+Route::middleware('api')->delete('/products/{upc}', 'ProductsController@destroy')->name('api.products.destroy');
 
-Route::middleware('api')->get('/expirations', 'ExpirationsController@index');
-Route::middleware('api')->get('/expirations/{id}', 'ExpirationsController@show');
-Route::middleware('api')->post('/expirations', 'ExpirationsController@store');
-Route::middleware('api')->put('/expirations/{id}', 'ExpirationsController@update');
-Route::middleware('api')->delete('/expirations/{id}', 'ExpirationsController@destroy');
+Route::middleware('api')->get('/expirations', 'ExpirationsController@index')->name('api.expirations');
+Route::middleware('api')->get('/expirations/{id}', 'ExpirationsController@show')->name('api.expirations.show');
+Route::middleware('api')->post('/expirations', 'ExpirationsController@store')->name('api.expirations.store');
+Route::middleware('api')->put('/expirations/{id}', 'ExpirationsController@update')->name('api.expirations.update');
+Route::middleware('api')->delete('/expirations/{id}', 'ExpirationsController@destroy')->name('api.expirations.destroy');

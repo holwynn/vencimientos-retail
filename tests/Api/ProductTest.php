@@ -15,7 +15,7 @@ class ProductTest extends TestCase
     {
         $prod = factory(\App\Product::class)->create();
 
-        $res = $this->json('GET', '/api/products');
+        $res = $this->json('GET', route('api.products'));
 
         $res->assertStatus(200);
         $res->assertJson([0 => [
@@ -29,7 +29,7 @@ class ProductTest extends TestCase
     {
         $prod = factory(\App\Product::class)->create();
 
-        $res = $this->json('GET', '/api/products/'.$prod->upc);
+        $res = $this->json('GET', route('api.products.show', ['upc' => $prod->upc]));
 
         $res->assertStatus(200);
         $res->assertJson([
@@ -45,13 +45,12 @@ class ProductTest extends TestCase
         $user = factory(\App\User::class)->create();
         $token = auth('api')->tokenById($user->id);
 
-        $res = $this->withHeaders([
-            'Authorization' => 'Bearer '.$token,
-        ])->json('POST', '/api/products', [
-            'name' => 'My new product',
-            'upc' => '0938476748273',
-            'img' => 'https://imgur.com/photo.jpg',
-        ]);
+        $res = $this->jwt($token)
+            ->json('POST', route('api.products.store'), [
+                'name' => 'My new product',
+                'upc' => '0938476748273',
+                'img' => 'https://imgur.com/photo.jpg',
+            ]);
 
         $res->assertStatus(201);
         $res->assertJson([
@@ -70,12 +69,11 @@ class ProductTest extends TestCase
         $user = factory(\App\User::class)->create();
         $token = auth('api')->tokenById($user->id);
 
-        $res = $this->withHeaders([
-            'Authorization' => 'Bearer '.$token,
-        ])->json('PUT', '/api/products/'.$prod->upc, [
-            'name' => 'New product name',
-            'upc' => $prod->upc,
-        ]);
+        $res = $this->jwt($token)
+            ->json('PUT', route('api.products.update', ['upc' => $prod->upc]), [
+                'name' => 'New product name',
+                'upc' => $prod->upc,
+            ]);
 
         $res->assertStatus(200);
         $res->assertJson([
@@ -92,9 +90,10 @@ class ProductTest extends TestCase
         $user = factory(\App\User::class)->create();
         $token = auth('api')->tokenById($user->id);
 
-        $res = $this->withHeaders([
-            'Authorization' => 'Bearer '.$token,
-        ])->json('DELETE', '/api/products/'.$prod->upc);
+        $res = $this->jwt($token)
+            ->json('DELETE', route('api.products.destroy', [
+                'upc' => $prod->upc]
+            ));
 
         $res->assertStatus(200);
         $res->assertJson([
@@ -105,7 +104,7 @@ class ProductTest extends TestCase
     /** @test */
     public function it_doesnt_create_products_if_unauthenticated()
     {
-        $res = $this->json('POST', '/api/products', [
+        $res = $this->json('POST', route('api.products.store'), [
             'name' => 'My new product',
             'upc' => '09384762748273',
             'img' => 'https://imgur.com/photo.jpg',
@@ -119,7 +118,7 @@ class ProductTest extends TestCase
     {
         $prod = factory(\App\Product::class)->create();
 
-        $res = $this->json('PUT', '/api/products/'.$prod->upc, [
+        $res = $this->json('PUT', route('api.products.update', ['upc' => $prod->upc]), [
             'name' => 'New product name',
         ]);
 
@@ -131,7 +130,9 @@ class ProductTest extends TestCase
     {
         $prod = factory(\App\Product::class)->create();
 
-        $res = $this->json('DELETE', '/api/products/'.$prod->upc);
+        $res = $this->json('DELETE', route('api.products.destroy', [
+            'upc' => $prod->upc]
+        ));
 
         $res->assertStatus(401);
     }
@@ -144,11 +145,10 @@ class ProductTest extends TestCase
         $user = factory(\App\User::class)->create();
         $token = auth('api')->tokenById($user->id);
 
-        $res = $this->withHeaders([
-            'Authorization' => 'Bearer '.$token,
-        ])->json('PUT', '/api/products/'.$prod->upc, [
-            'upc' => 'this is not a upc code',
-        ]);
+        $res = $this->jwt($token)
+            ->json('PUT', route('api.products.update', ['upc' => $prod->upc]), [
+                'upc' => 'this is not a upc code',
+            ]);
 
         $res->assertStatus(422);
     }
