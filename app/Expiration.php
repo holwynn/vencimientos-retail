@@ -22,11 +22,13 @@ class Expiration extends Model
         'deleted_at',
     ];
 
-    public function product() {
+    public function product()
+    {
         return $this->belongsTo(Product::class);
     }
 
-    public function store() {
+    public function store()
+    {
         return $this->belongsTo(Store::class);
     }
 
@@ -48,7 +50,7 @@ class Expiration extends Model
         // locale is already utf8
         setlocale(LC_TIME, 'es_AR.utf8');
         Carbon::setLocale('es');
-        
+
         if (!$year) {
             return ucfirst($this->expiration->formatLocalized('%A, %d de %B'));
         }

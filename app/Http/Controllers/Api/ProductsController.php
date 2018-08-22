@@ -100,9 +100,10 @@ class ProductsController extends Controller
         ]), 404);
     }
 
-    private function fromWalmart($upc) {
+    private function fromWalmart($upc)
+    {
         $this->authorize('create', Product::class);
-        
+
         $product = new Product();
         $product->fromWalmart($upc);
 

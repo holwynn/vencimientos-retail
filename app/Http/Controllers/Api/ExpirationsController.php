@@ -89,7 +89,8 @@ class ExpirationsController extends Controller
         ], 200);
     }
 
-    public function throwUnknownExpiration() {
+    public function throwUnknownExpiration()
+    {
         throw new HttpResponseException(response()->json([
             'msg' => 'Expiration does not exist',
         ]), 404);

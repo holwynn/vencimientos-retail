@@ -16,7 +16,8 @@ class Product extends Model
         'img',
     ];
 
-    public function fromWalmart($upc) {
+    public function fromWalmart($upc)
+    {
         $res = file_get_contents(self::WALMART_URL . $upc);
         $json = json_decode($res);
 
@@ -31,7 +32,8 @@ class Product extends Model
         return $this;
     }
 
-    public function expirations() {
+    public function expirations()
+    {
         return $this->hasMany(Expiration::class);
     }
 }

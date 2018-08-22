@@ -15,7 +15,8 @@ class Store extends Model
         'address'
     ];
 
-    public function expirations() {
+    public function expirations()
+    {
         return $this->hasMany(Expiration::class);
     }
 }

@@ -94,7 +94,8 @@ class ProductsController extends Controller
         return redirect()->route('admin.products.edit', ['id' => $product->id]);
     }
 
-    private function fromWalmart($upc) {
+    private function fromWalmart($upc)
+    {
         $this->authorize('create', Product::class);
 
         $product = new Product();
