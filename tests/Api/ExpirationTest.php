@@ -15,7 +15,7 @@ class ExpirationTest extends TestCase
     {
         $expiration = factory(\App\Expiration::class)->create();
 
-        $res = $this->json('GET', route('api.expirations'));
+        $res = $this->json('GET', route('api.expirations.index'));
 
         $res->assertStatus(200);
         $res->assertJson([0 => [
@@ -46,7 +46,7 @@ class ExpirationTest extends TestCase
     public function it_creates_expirations()
     {
         $prod = factory(\App\Product::class)->create();
-        
+
         $user = factory(\App\User::class)->create();
         $token = auth('api')->tokenById($user->id);
 
@@ -68,7 +68,7 @@ class ExpirationTest extends TestCase
     public function it_updates_expirations()
     {
         $expiration = factory(\App\Expiration::class)->create();
-        
+
         $user = factory(\App\User::class)->create();
         $token = auth('api')->tokenById($user->id);
 
@@ -91,7 +91,7 @@ class ExpirationTest extends TestCase
     public function it_deletes_expirations()
     {
         $expiration = factory(\App\Expiration::class)->create();
-        
+
         $user = factory(\App\User::class)->create();
         $token = auth('api')->tokenById($user->id);
 
@@ -148,7 +148,7 @@ class ExpirationTest extends TestCase
     public function it_fails_validation()
     {
         $expiration = factory(\App\Expiration::class)->create();
-        
+
         $user = factory(\App\User::class)->create();
         $token = auth('api')->tokenById($user->id);
 

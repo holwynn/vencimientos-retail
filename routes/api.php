@@ -14,7 +14,6 @@ use Illuminate\Http\Request;
 */
 
 Route::group([
-    'middleware' => 'api',
     'prefix' => 'auth'
 ], function () {
     Route::post('login', 'AuthController@login');
@@ -24,14 +23,16 @@ Route::group([
     Route::post('register', 'AuthController@register');
 });
 
-Route::middleware('api')->get('/products', 'ProductsController@index')->name('api.products');
-Route::middleware('api')->get('/products/{upc}', 'ProductsController@show')->name('api.products.show');
-Route::middleware('api')->post('/products', 'ProductsController@store')->name('api.products.store');
-Route::middleware('api')->put('/products/{upc}', 'ProductsController@update')->name('api.products.update');
-Route::middleware('api')->delete('/products/{upc}', 'ProductsController@destroy')->name('api.products.destroy');
+Route::name('api.')->group(function() {
+    Route::get('/products', 'ProductsController@index')->name('products.index');
+    Route::get('/products/{upc}', 'ProductsController@show')->name('products.show');
+    Route::post('/products', 'ProductsController@store')->name('products.store');
+    Route::put('/products/{upc}', 'ProductsController@update')->name('products.update');
+    Route::delete('/products/{upc}', 'ProductsController@destroy')->name('products.destroy');
 
-Route::middleware('api')->get('/expirations', 'ExpirationsController@index')->name('api.expirations');
-Route::middleware('api')->get('/expirations/{id}', 'ExpirationsController@show')->name('api.expirations.show');
-Route::middleware('api')->post('/expirations', 'ExpirationsController@store')->name('api.expirations.store');
-Route::middleware('api')->put('/expirations/{id}', 'ExpirationsController@update')->name('api.expirations.update');
-Route::middleware('api')->delete('/expirations/{id}', 'ExpirationsController@destroy')->name('api.expirations.destroy');
+    Route::get('/expirations', 'ExpirationsController@index')->name('expirations.index');
+    Route::get('/expirations/{id}', 'ExpirationsController@show')->name('expirations.show');
+    Route::post('/expirations', 'ExpirationsController@store')->name('expirations.store');
+    Route::put('/expirations/{id}', 'ExpirationsController@update')->name('expirations.update');
+    Route::delete('/expirations/{id}', 'ExpirationsController@destroy')->name('expirations.destroy');
+});

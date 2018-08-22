@@ -15,7 +15,7 @@ class ProductTest extends TestCase
     {
         $prod = factory(\App\Product::class)->create();
 
-        $res = $this->json('GET', route('api.products'));
+        $res = $this->json('GET', route('api.products.index'));
 
         $res->assertStatus(200);
         $res->assertJson([0 => [
@@ -86,7 +86,7 @@ class ProductTest extends TestCase
     public function it_deletes_products()
     {
         $prod = factory(\App\Product::class)->create();
-        
+
         $user = factory(\App\User::class)->create();
         $token = auth('api')->tokenById($user->id);
 

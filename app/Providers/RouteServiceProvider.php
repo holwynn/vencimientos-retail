@@ -73,7 +73,7 @@ class RouteServiceProvider extends ServiceProvider
 
     /**
      * Define the "admin" routes for the application.
-     * 
+     *
      * These routes all receive session state, CSRF protection, etc.
      *
      * @return void
