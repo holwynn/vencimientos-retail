@@ -5,10 +5,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\User;
 use App\Product;
-use App\Expiration;
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Carbon\Carbon;
+use App\Expiration;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class DashboardController extends Controller
 {
@@ -32,7 +32,7 @@ class DashboardController extends Controller
         setlocale(LC_TIME, 'es_AR.utf8');
 
         $today = Carbon::now();
-        
+
         $usersCount = User::count();
         $productsCount = Product::count();
         $expirationsCount = Expiration::count();

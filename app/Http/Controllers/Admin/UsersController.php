@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\User;
-use App\Http\Requests\UpdateProfileRequest;
 use Illuminate\Http\Request;
+use App\Http\Requests\UpdateProfileRequest;
 use App\Http\Controllers\Controller;
 
 class UsersController extends Controller

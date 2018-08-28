@@ -4,14 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use App\Product;
 use App\Log as DatabaseLog;
-use App\Http\Requests\StoreProductRequest;
-use App\Http\Requests\UpdateProductRequest;
-use App\Queries\Admin\ListProducts;
+use Illuminate\Http\Request;
 use App\Events\Products\Create;
 use App\Events\Products\Update;
 use App\Events\Products\Delete;
-use Illuminate\Http\Request;
+use App\Queries\Admin\ListProducts;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreProductRequest;
+use App\Http\Requests\UpdateProductRequest;
 
 class ProductsController extends Controller
 {

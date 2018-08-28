@@ -3,18 +3,18 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Product;
+use Carbon\Carbon;
 use App\Expiration;
 use App\Log as DatabaseLog;
-use App\Http\Requests\StoreExpirationRequest;
-use App\Http\Requests\UpdateExpirationRequest;
-use App\Queries\Admin\ListExpirations;
+use Illuminate\Http\Request;
+use App\Events\Expirations\Check;
 use App\Events\Expirations\Create;
 use App\Events\Expirations\Update;
 use App\Events\Expirations\Delete;
-use App\Events\Expirations\Check;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Carbon\Carbon;
+use App\Queries\Admin\ListExpirations;
+use App\Http\Requests\StoreExpirationRequest;
+use App\Http\Requests\UpdateExpirationRequest;
 
 class ExpirationsController extends Controller
 {

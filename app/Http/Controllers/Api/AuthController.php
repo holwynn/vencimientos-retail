@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
-use Validator;
 use App\User;
+use Validator;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 

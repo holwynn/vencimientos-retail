@@ -4,14 +4,14 @@ namespace App\Http\Controllers\Api;
 
 use Validator;
 use App\Product;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\Events\Products\Create;
 use App\Events\Products\Update;
 use App\Events\Products\Delete;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
 class ProductsController extends Controller
@@ -46,14 +46,12 @@ class ProductsController extends Controller
 
         $product = Product::where('upc', $upc)->first();
 
-        if ($product) {
-            return $product;
-        }
-
-        $product = $this->fromWalmart($upc);
-
         if (!$product) {
-            $this->throwUnknownProduct();
+            $product = $this->fromWalmart($upc);
+
+            if (!$product) {
+                $this->throwUnknownProduct();
+            }
         }
 
         return $product;

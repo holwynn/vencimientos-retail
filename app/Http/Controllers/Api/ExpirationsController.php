@@ -3,17 +3,17 @@
 namespace App\Http\Controllers\Api;
 
 use Validator;
-use App\Expiration;
 use App\Product;
+use App\Expiration;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+// use App\Events\Expirations\Check;
 use App\Events\Expirations\Create;
 use App\Events\Expirations\Update;
 use App\Events\Expirations\Delete;
-// use App\Events\Expirations\Check;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreExpirationRequest;
 use App\Http\Requests\UpdateExpirationRequest;
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
 class ExpirationsController extends Controller
