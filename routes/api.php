@@ -16,11 +16,11 @@ use Illuminate\Http\Request;
 Route::group([
     'prefix' => 'auth'
 ], function () {
-    Route::post('login', 'AuthController@login');
-    Route::post('logout', 'AuthController@logout');
-    Route::post('refresh', 'AuthController@refresh');
-    Route::post('me', 'AuthController@me');
-    Route::post('register', 'AuthController@register');
+    Route::post('login', 'AuthController@login')->name('api.login');
+    Route::post('logout', 'AuthController@logout')->name('api.logout');
+    Route::post('refresh', 'AuthController@refresh')->name('api.refresh');
+    Route::post('me', 'AuthController@me')->name('api.me');
+    Route::post('register', 'AuthController@register')->name('api.register');
 });
 
 Route::name('api.')->group(function() {

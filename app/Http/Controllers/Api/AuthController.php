@@ -111,7 +111,7 @@ class AuthController extends Controller
             'password' => bcrypt(request()->password),
         ]);
 
-        $token = auth()->tokenById($user->id);
+        $token = auth('api')->tokenById($user->id);
 
         return $this->respondWithToken($token);
     }
